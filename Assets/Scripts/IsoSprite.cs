@@ -1,0 +1,56 @@
+using UnityEditor;
+using UnityEngine;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+
+[ExecuteAlways]
+public class IsoSprite : MonoBehaviour
+{
+    public static List<IsoSprite> all = new();
+
+    private void Awake()
+    {        
+        all.Add(this);
+        if (Log.iso)
+            Debug.Log("Add 1 item to all isoSpr. Count: " + all.Count);
+    }
+
+    private void OnDestroy()
+    {
+        all.Remove(this);
+        if (Log.iso)
+            Debug.Log("Remove 1 item from all isoSpr. Count: " + all.Count);
+    }
+
+    public void Tick()
+    {
+        if (Log.iso)
+            Debug.Log("Tick iso", gameObject);
+
+        Quaternion lookRot = Boot.cam.LookCamRotation();
+        transform.rotation = lookRot;// * Quaternion.AngleAxis(transform.eulerAngles.z, Vector3.forward);
+    }
+
+
+    [MenuItem("Developer/Rotate all iso sprites")]
+    public static void TickAllComponents()
+    {
+        all.Clear();
+        foreach (var iso in Resources.FindObjectsOfTypeAll(typeof(IsoSprite)))
+        {
+            all.Add(iso.GetComponent<IsoSprite>());
+            Debug.Log("add: " + iso.name + ", Count: " + all.Count);
+        }
+        TickAll();
+    }
+
+    public static void TickAll()
+    {
+        if (Log.iso)
+            Debug.Log("Tick all, Count: " + all.Count);
+        foreach (var spr in all)
+        {
+            spr.Tick();
+        }
+    }
+}
