@@ -74,10 +74,9 @@ public class BattleManager : MonoBehaviour
         cam.Focus(f.transform);        
         cam.Zoom(7.0f);
         var dir = f.transform.position - Boot.player.transform.position;
-        var ang = Mathf.Atan2(dir.y, dir.x)*Mathf.Rad2Deg;
-        var rot = cam.pivot.eulerAngles;
-        rot.y = ang;
-        cam.pivot.eulerAngles = rot;
+        Debug.DrawLine(Boot.player.transform.position, Boot.player.transform.position + dir * 10.0f, Color.yellow, 10.0f);
+        var ang = Mathf.Atan2(dir.x, dir.z)*Mathf.Rad2Deg;
+        cam.Rotate(ang);
 
         yield return Helpers.Wait(Data.PreBattleDuration);
         ui.PrintLog("BeginBattle!!");

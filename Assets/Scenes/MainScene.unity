@@ -996,8 +996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9ce72be562bc848a5b7a2337d3c2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  isFishing: 0
   lineL: 6
-  IsFishing: 0
   hook: {fileID: 2041429499}
   onStartFishing:
     m_PersistentCalls:
@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592947036}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bd0ab8c64686074abcbdd688ff605a4, type: 3}
   m_Name: 

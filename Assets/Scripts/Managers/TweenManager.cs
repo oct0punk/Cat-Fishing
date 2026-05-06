@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -95,27 +94,16 @@ public class Oscillate : Tween
 
 public class RotateTo : Tween
 {
-    float tarY;
-    float sp;
 
 
     public RotateTo(Transform t, float targetRot, float duration) : base(t)
     {
-        tarY = targetRot;
-        sp = 3.0f;
-        return;
-        //float a = Quaternion.Angle(tr.rotation, tarRot);
-        //if (duration == 0.0f) 
-            //sp = 1000.0f;
-        //else 
-            //sp = a / duration;
+
     }
 
     public override void Tick()
     {
-        var rot = tr.eulerAngles; //Quaternion.RotateTowards(tr.rotation, Quaternion.Euler(tr.eulerAngles.x, tarY, tr.eulerAngles.z), sp*Time.deltaTime);
-        rot.y = tarY;
-        //tr.eulerAngles = rot;
+
     }
 
     public override void OnEnd() {}

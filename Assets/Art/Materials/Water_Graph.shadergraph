@@ -23,9 +23,6 @@
         },
         {
             "m_Id": "a272948682904d5fb029cb388395f2bb"
-        },
-        {
-            "m_Id": "1da398122bac4346b234501176264988"
         }
     ],
     "m_Keywords": [],
@@ -577,41 +574,6 @@
 }
 
 {
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "1da398122bac4346b234501176264988",
-    "m_Guid": {
-        "m_GuidSerialized": "e4865bc7-ea25-4fa6-bf2e-5f86e9bdf217"
-    },
-    "promotedFromAssetID": "",
-    "promotedFromCategoryName": "",
-    "promotedOrdering": -1,
-    "m_Name": "Bright Color",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Bright Color",
-    "m_DefaultReferenceName": "_Bright_Color",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_PerRendererData": false,
-    "m_customAttributes": [],
-    "m_Value": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0,
-        "a": 1.0
-    },
-    "isMainColor": false,
-    "m_ColorMode": 1
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "1f052ba9b169465eabd8ce8809f7520d",
@@ -706,9 +668,6 @@
         },
         {
             "m_Id": "f334f50bd92f41568d6d45449fb57fae"
-        },
-        {
-            "m_Id": "1da398122bac4346b234501176264988"
         },
         {
             "m_Id": "5f28924c4b5a4d8da5c05e1429618978"
