@@ -51,16 +51,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Flat: 10
+    - _Flat: 2
     - _GradH: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 0.28
-    - _StepEdge: 0.52
+    - _Speed: 0.3
+    - _StepEdge: 0.433
     - _XRMotionVectorsPass: 1
-    - _brightness: 4
+    - _brightness: 2
     - _pow: -0.97
-    - _scale: 5.93
+    - _scale: 10
     m_Colors:
     - _Bright_Color: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 0.22745097, g: 0.5019608, b: 0.7333333, a: 0}

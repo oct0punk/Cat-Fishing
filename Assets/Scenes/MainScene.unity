@@ -427,7 +427,7 @@ Transform:
   m_GameObject: {fileID: 358512655}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: -1.6383044, z: 1.1471527}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -449,7 +449,7 @@ MonoBehaviour:
   target: {fileID: 762910911}
   offset: {x: 0, y: 0, z: 2}
   speed: 10
-  relative: 0
+  relative: 1
   y: 1
 --- !u!1 &405048312
 GameObject:
@@ -634,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 480046206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 2}
+  m_LocalPosition: {x: 0, y: -1.7383044, z: 1.1471527}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1446,8 +1446,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842a621851813e4b96e32a1f88710a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  rotDuration: 0.2
   pivot: {fileID: 358512656}
   main: {fileID: 519420031}
+  tarRot: 0
 --- !u!1 &1234971846
 GameObject:
   m_ObjectHideFlags: 0

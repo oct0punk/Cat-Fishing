@@ -62,7 +62,7 @@ public class Fish : MonoBehaviourWithEvents, IProduct
     {
         if (spr != null)
         {
-            if (spr.color.a < 1.0f)
+            if (spr.color.a < .5f)
             {
                 var c = spr.color;
                 c.a += Time.deltaTime;
@@ -73,7 +73,11 @@ public class Fish : MonoBehaviourWithEvents, IProduct
         }
 
         var p = Boot.player;
-        if (p != null) bhv = BiteBehaviour;
+        if (p != null)
+        {
+            bhv = BiteBehaviour;
+            spd = dat.chargeSpeed;
+        }
     }
 
     void BiteBehaviour()
@@ -92,6 +96,7 @@ public class Fish : MonoBehaviourWithEvents, IProduct
         else
         {
             bhv = NaturalBehaviour;
+            spd = dat.normalSpeed;
         }
     }
 
@@ -104,7 +109,7 @@ public class Fish : MonoBehaviourWithEvents, IProduct
         Vector3 vec = transform.position - Boot.player.transform.position;
         Vector3 dir = transform.forward + vec.normalized;
         dir.Normalize();
-        trgPos = transform.position + dir * dat.chargeSpeed;        
+        trgPos = transform.position + dir * dat.pullingSpeed;        
 
         p.hook.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
         if (vec.magnitude > p.lineL)
