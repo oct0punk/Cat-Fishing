@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        screens = new IScreenUI[4] { menu, bar, catchScreen, new PlayScreen() };
+        screens = new IScreenUI[3] { menu, bar, new PlayScreen() };
         MenuMode();
     }
 
