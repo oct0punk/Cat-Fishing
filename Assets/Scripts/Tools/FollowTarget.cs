@@ -7,20 +7,30 @@ public class FollowTarget : MonoBehaviour
     [SerializeField] 
            Transform    target;
     public Vector3      offset;
-    public float        speed = 3.0f;
+    public float        speed   = 3.0f;
     public bool         relative;
-    public bool         y = true;
+    public bool         x       = true;
+    public bool         y       = true;
+    public bool         z       = true;
 
+    float vx;
+    float vy;
+    float vz;
 
-    void Update()
+    void FixedUpdate()
     {
         tgtPos = target.position + offset;
         if (relative)
             tgtPos = target.position + target.rotation * offset;
 
-        if (!y) tgtPos.y = 0.0f;
+        float nx = .0f;
+        float ny = .0f;
+        float nz = .0f;
+        if (x) nx = Mathf.SmoothDamp(transform.position.x, tgtPos.x, ref vx, speed);
+        if (y) ny = Mathf.SmoothDamp(transform.position.y, tgtPos.y, ref vy, speed);
+        if (z) nz = Mathf.SmoothDamp(transform.position.z, tgtPos.z, ref vz, speed);
 
-        transform.position = Vector3.Lerp(transform.position, tgtPos, Time.deltaTime * speed);
+        transform.position = new Vector3 (nx, ny, nz);
     }
 
     private void OnDrawGizmosSelected()

@@ -50,7 +50,7 @@ public class Fish : MonoBehaviourWithEvents, IProduct
         spr.color = Color.plum;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         bhv();
         MoveToTarget();

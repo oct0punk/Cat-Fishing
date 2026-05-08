@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviour
         tarRot = pivot.eulerAngles.y;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         //t -= Time.deltaTime;
         //if (t < 0)

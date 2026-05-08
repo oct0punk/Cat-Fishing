@@ -16,6 +16,7 @@ public class Boot : MonoBehaviour
     public static PlayerController player;
 
 
+
     private void OnEnable()
     {
         if (isInit) return;
