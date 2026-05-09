@@ -1,12 +1,15 @@
+using UnityEditor;
 using UnityEngine;
 
 
 public class Fish : MonoBehaviourWithEvents, IProduct
 {
-    private float           spd = 10.0f;
-    private Vector3         trgPos;
-    private System.Action   bhv;
-    private SpriteRenderer  spr;
+    FSM<Fish>           fsm;
+    FishAppearingState      appearingState;
+    FishIdleState           idleState;
+    FishBiteState           biteState;
+    FishFleeingState        fleeingState;
+    FishBattleState         battleState;
 
     public float    hp;
     public FishData dat;
@@ -14,148 +17,57 @@ public class Fish : MonoBehaviourWithEvents, IProduct
 
     private void Awake()
     {
-        spr = GetComponentInChildren<SpriteRenderer>();
-        if (spr)
-        {
-            var c = spr.color;
-            c.a = 0.0f;
-            spr.color = c;
-        }
-
-
-        trgPos = transform.position;
-        bhv = NaturalBehaviour;
+        appearingState  = new FishAppearingState(this);
+        idleState       = new FishIdleState(this);
+        biteState       = new FishBiteState(this);
+        fleeingState    = new FishFleeingState(this);
+        battleState     = new FishBattleState(this);
+        fsm = appearingState;
+        fsm.OnEnter(this);
     }
+
+    private void FixedUpdate()
+    {
+        fsm.Tick(this);
+    }
+
+    public void ChangeState(FSM<Fish> newState)
+    {
+        fsm.OnEnd(this);
+        fsm = newState;
+        fsm.OnEnter(this);
+    }
+
 
     public void Init(FishData _data)
     {
         dat = _data;
         hp  = dat.hp;
-        spd = dat.normalSpeed;
-        if (spr) {
-            spr.sprite = dat.spr;
+        if (TryGetComponent(out SpriteRenderer rdr)) {
+            rdr.sprite = dat.spr;
         }
     }
 
-    public void Flee()
+    public void Idle() => ChangeState(idleState);
+    public void Bite() => ChangeState(biteState);
+    public void Flee() => ChangeState(fleeingState);
+    public void Battle() => ChangeState(battleState);
+    public void Destroy() => Destroy(gameObject);   //For fsm
+
+
+    public void MoveTo(Vector3 pos, float spd)
     {
-        bhv = FleeingBehaviour;
-        spd = dat.chargeSpeed;
-    }
-
-    public void Pull()
-    {
-        bhv = PullBehaviour;
-        spd = dat.pullingSpeed;
-        spr.color = Color.plum;
-    }
-
-    private void FixedUpdate()
-    {
-        bhv();
-        MoveToTarget();
-        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.red);
-    }
-
-    
-    void NaturalBehaviour()
-    {
-        if (spr != null)
-        {
-            if (spr.color.a < .5f)
-            {
-                var c = spr.color;
-                c.a += Time.deltaTime;
-                spr.color = c;
-                trgPos = transform.position + transform.forward * spd;
-                return;
-            }
-        }
-
-        var p = Boot.player;
-        if (p != null)
-        {
-            bhv = BiteBehaviour;
-            spd = dat.chargeSpeed;
-        }
-    }
-
-    void BiteBehaviour()
-    {
-        var p = Boot.player;
-        if (p == null) return;
-        if (p.isFishing)
-        {
-            trgPos = p.hook.transform.position;
-
-            if (Vector3.Distance(transform.position, p.hook.transform.position) <= .1f)
-            {
-                Boot.game.EnterBattle(new SBattleDatas(this));
-            }
-        }
-        else
-        {
-            bhv = NaturalBehaviour;
-            spd = dat.normalSpeed;
-        }
-    }
-
-    void PullBehaviour()
-    {
-        PlayerController p = Boot.player;
-        if (p == null) {
-            throw Boot.MissingPlayerReference();
-        }
-        Vector3 vec = transform.position - Boot.player.transform.position;
-        Vector3 dir = transform.forward + vec.normalized;
-        dir.Normalize();
-        trgPos = transform.position + dir * dat.pullingSpeed;        
-
-        p.hook.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-        if (vec.magnitude > p.lineL)
-        {
-            p.transform.SetPositionAndRotation(
-                transform.position - vec.normalized * p.lineL, 
-                p.transform.rotation);
-        }
-    }
-
-    void FleeingBehaviour()
-    {
-        if (spr != null)
-        {
-            if (spr.color.a > 0.0f)
-            {
-                var c = spr.color;
-                c.a -= Time.deltaTime;
-                spr.color = c;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-        }
-
-        if (Boot.player == null || Boot.player.hook == null) return;
-        Vector3 fleeDir = transform.position - Boot.player.hook.transform.position;
-        trgPos = transform.position + fleeDir * dat.normalSpeed;
-        MoveToTarget();
-    }
-
-    void MoveToTarget()
-    {
-        Vector3 dir = trgPos - transform.position;
+        Vector3 dir = pos - transform.position;
         if (dir.magnitude < 0.1f) return;
         dir.Normalize();
 
         float ang = Mathf.Atan2(-dir.z, dir.x) * Mathf.Rad2Deg;
 
         transform.SetPositionAndRotation(Vector3.MoveTowards(
-            transform.position, trgPos, spd * Time.deltaTime),
+            transform.position, pos, spd * Time.deltaTime),
             Quaternion.Euler(0.0f, ang+90.0f, 0.0f));
 
-        if (Log.fish) Debug.DrawLine(transform.position, trgPos, Color.yellow);
+        if (Log.fish) Debug.DrawLine(transform.position, pos, Color.yellow);
     }
 
 }

@@ -75,7 +75,7 @@ public class BattleManager : MonoBehaviour
 
         yield return Helpers.Wait(Boot.Datas.PreBattleDuration);
         Boot.game.BattleMode();
-        f.Pull();
+        f.Battle();
     }
 
     IEnumerator OnEndBattleRoutine()

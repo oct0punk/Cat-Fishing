@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FishData
   m_EditorClassIdentifier: Assembly-CSharp::FishData
   id: Fish
-  hp: 1
+  hp: 3
   force: 10
   normalSpeed: 6
   chargeSpeed: 20
-  pullingSpeed: 15
+  pullingSpeed: 42
   spr: {fileID: -1915776564401465818, guid: 209839017c1c19440abec4fcd26708de, type: 3}

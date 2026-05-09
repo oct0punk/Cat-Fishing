@@ -12,12 +12,12 @@ public abstract class FSM<T>
 }
 
 
-public class PlayerFishing : FSM<PlayerController>
+public class PlayerFishingState : FSM<PlayerController>
 {
     Vector3 aimPos;
 
 
-    public PlayerFishing(PlayerController tg) : base(tg)
+    public PlayerFishingState(PlayerController tg) : base(tg)
     {
     }
 
@@ -81,13 +81,13 @@ public class PlayerFishing : FSM<PlayerController>
     }
 }
 
-public class PlayerBattle : FSM<PlayerController>
+public class PlayerBattleState : FSM<PlayerController>
 {
     public float offset;
     float dodgeDur = 30.0f;
     float amp = .1f;
 
-    public PlayerBattle(PlayerController tg) : base(tg)
+    public PlayerBattleState(PlayerController tg) : base(tg)
     {
         
     }

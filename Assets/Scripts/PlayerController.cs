@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class PlayerController : MonoBehaviour
 {
     FSM<PlayerController>   fsm;
-    PlayerFishing           fishingState;
-    PlayerBattle            battleState;
+    PlayerFishingState           fishingState;
+    PlayerBattleState            battleState;
 
     public bool isFishing;
     public float        lineL = 6.0f;
@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
             hook.name = "Hook";
         }
 
-        fishingState    = new PlayerFishing(this);
-        battleState     = new PlayerBattle(this);
+        fishingState    = new PlayerFishingState(this);
+        battleState     = new PlayerBattleState(this);
         fsm = fishingState;
         fishingState.OnEnter(this);
     }

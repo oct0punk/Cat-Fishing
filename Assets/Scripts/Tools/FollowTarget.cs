@@ -4,9 +4,9 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     Vector3             tgtPos;
-
     [SerializeField] 
            Transform[]    targets;
+
     public Vector3      offset;
     public float        smooth = .5f;
     //public bool         relative;
@@ -22,25 +22,28 @@ public class FollowTarget : MonoBehaviour
     {
         tgtPos = GetMedPoint() + offset;
 
-        float nx = .0f;
-        float ny = .0f;
-        float nz = .0f;
-        if (x) nx = Mathf.SmoothDamp(transform.position.x, tgtPos.x, ref vx, smooth);
-        if (y) ny = Mathf.SmoothDamp(transform.position.y, tgtPos.y, ref vy, smooth);
-        if (z) nz = Mathf.SmoothDamp(transform.position.z, tgtPos.z, ref vz, smooth);
+        float nx = transform.position.x;
+        float ny = transform.position.y;
+        float nz = transform.position.z;
+        if (x) nx = Mathf.SmoothDamp(nx, tgtPos.x, ref vx, smooth);
+        if (y) ny = Mathf.SmoothDamp(ny, tgtPos.y, ref vy, smooth);
+        if (z) nz = Mathf.SmoothDamp(nz, tgtPos.z, ref vz, smooth);
 
         transform.position = new Vector3 (nx, ny, nz);
     }
 
     private void OnValidate()
     {
+        if (targets == null)    return;
+        if (targets.Length <= 0) return;
         Sync();
     }
 
 
     Vector3 GetMedPoint()
     {
-        if (targets.Length==0) return Vector3.zero;
+        if (targets == null)    return transform.position;
+        if (targets.Length==0)  return transform.position;
         if (targets.Length == 1) return targets[0].position;
         Vector3 pos = Vector3.zero;
         foreach (Transform t in targets)
