@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FollowTarget : MonoBehaviour
@@ -5,10 +6,10 @@ public class FollowTarget : MonoBehaviour
     Vector3             tgtPos;
 
     [SerializeField] 
-           Transform    target;
+           Transform[]    targets;
     public Vector3      offset;
-    public float        speed   = 3.0f;
-    public bool         relative;
+    public float        smooth = .5f;
+    //public bool         relative;
     public bool         x       = true;
     public bool         y       = true;
     public bool         z       = true;
@@ -19,25 +20,16 @@ public class FollowTarget : MonoBehaviour
 
     void FixedUpdate()
     {
-        tgtPos = target.position + offset;
-        if (relative)
-            tgtPos = target.position + target.rotation * offset;
+        tgtPos = GetMedPoint() + offset;
 
         float nx = .0f;
         float ny = .0f;
         float nz = .0f;
-        if (x) nx = Mathf.SmoothDamp(transform.position.x, tgtPos.x, ref vx, speed);
-        if (y) ny = Mathf.SmoothDamp(transform.position.y, tgtPos.y, ref vy, speed);
-        if (z) nz = Mathf.SmoothDamp(transform.position.z, tgtPos.z, ref vz, speed);
+        if (x) nx = Mathf.SmoothDamp(transform.position.x, tgtPos.x, ref vx, smooth);
+        if (y) ny = Mathf.SmoothDamp(transform.position.y, tgtPos.y, ref vy, smooth);
+        if (z) nz = Mathf.SmoothDamp(transform.position.z, tgtPos.z, ref vz, smooth);
 
         transform.position = new Vector3 (nx, ny, nz);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (target == null) return;
-        Gizmos.color = Color.lightYellow;
-        Gizmos.DrawLine(target.position, tgtPos);
     }
 
     private void OnValidate()
@@ -45,22 +37,34 @@ public class FollowTarget : MonoBehaviour
         Sync();
     }
 
+
+    Vector3 GetMedPoint()
+    {
+        if (targets.Length==0) return Vector3.zero;
+        if (targets.Length == 1) return targets[0].position;
+        Vector3 pos = Vector3.zero;
+        foreach (Transform t in targets)
+        {
+            pos += t.position;
+        }
+        pos /= targets.Length;
+        return pos;
+    }
+
     public void Sync()
     {
-        tgtPos = target.position + offset;
-        if (relative)
-            tgtPos = target.position + target.rotation * offset;
+        tgtPos = GetMedPoint() + offset;
 
         transform.position = tgtPos;
     }
 
-    public void ChangeTarget(Transform tgt)
+    public void SetTargets(Transform[] tgts)
     {
-        target = tgt;
-        if (target is RectTransform)
-        {
-            throw new System.NotImplementedException();
-            // TODO - manage ui case
-        }
+        targets = tgts;
+    }
+
+    public void SetTarget(Transform tgt)
+    {
+        SetTargets(new Transform[1] { tgt });
     }
 }
