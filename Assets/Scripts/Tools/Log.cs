@@ -5,6 +5,7 @@ public static class Log
     public const bool ev    = false;
     public const bool fac   = false;
     public const bool fish  = false;
+    public const bool fsm   = true;
     public const bool inp   = false;
     public const bool iso   = false;
     public const bool man   = false;

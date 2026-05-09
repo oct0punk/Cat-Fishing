@@ -33,9 +33,18 @@ public class GameManager : MonoBehaviour
         Boot.bat.Init(battle);
     }
 
+    public void BattleMode()
+    {
+        Boot.ui.PrintLog("BeginBattle!!");
+        Boot.ui.BattleMode();
+        Boot.player.BattleMode();
+        Boot.bat.enabled = true;
+    }
+
     public void EndBattle()
     {
         ChangeState(GameState.Fishing);
+        Boot.player.Reset();
         Boot.ui.WaitMode();
         Boot.player.EndFishing();
     }

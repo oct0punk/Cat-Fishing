@@ -1,6 +1,9 @@
-public static class Data
+[System.Serializable]
+public class Data
 {
-    public const int    maxFishCount = 12;
-    public const float  PreBattleDuration = 1.3f;
-    public const float  PostBattleDuration = 0.0f;
+    // All will be const in build version
+    public int    maxFishCount          = 12;
+    public float  PreBattleDuration     = 1.3f;
+    public float  PostBattleDuration    = 0.0f;
+    public float  CamFollowSmoothing     = 0.4f;
 }

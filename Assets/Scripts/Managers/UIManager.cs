@@ -209,8 +209,8 @@ public class UIManager : MonoBehaviour
         tmp.rectTransform.anchoredPosition = Helpers.WorldToScreen(spawnPos);
         tmp.rectTransform.rotation = Quaternion.LookRotation(Vector3.forward, spawnPos - pos);
 
-        Boot.twn.Oscillate(tmp.transform, Data.PreBattleDuration);
-        Destroy(tmp.gameObject, Data.PreBattleDuration);
+        Boot.twn.Oscillate(tmp.transform, Boot.Datas.PreBattleDuration);
+        Destroy(tmp.gameObject, Boot.Datas.PreBattleDuration);
     }
 
     public void SpawnCatchImage()
@@ -225,8 +225,8 @@ public class UIManager : MonoBehaviour
         ig.rectTransform.localScale = Vector3.one * 2f;
 
         ig.CrossFadeAlpha(0f, 0f, true);
-        ig.CrossFadeAlpha(1f, Data.PreBattleDuration/2, true);
-        Destroy(ig.gameObject, Data.PreBattleDuration);
+        ig.CrossFadeAlpha(1f, Boot.Datas.PreBattleDuration/2, true);
+        Destroy(ig.gameObject, Boot.Datas.PreBattleDuration);
     }
 
     TextMeshProUGUI SpawnText(string txt)

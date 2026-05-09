@@ -1,20 +1,10 @@
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum EPlayerState
-{
-    Standby,
-    Fishing,
-    Battle
-}
 
 
 public class PlayerController : MonoBehaviour
 {
-    Vector3                 aimPos;
-    EPlayerState            stt;
     FSM<PlayerController>   fsm;
     PlayerFishing           fishingState;
     PlayerBattle            battleState;
@@ -47,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     void ChangeFSM(FSM<PlayerController> o)
     {
+        if (Log.fsm) Debug.Log("Change FSM state from " + fsm.GetType().Name + " to " + o.GetType().Name, gameObject);
         fsm.OnEnd(this);
         fsm = o;
         fsm.OnEnter(this);
@@ -55,5 +46,15 @@ public class PlayerController : MonoBehaviour
     public void EndFishing()
     {
         fishingState.EndFishing();
+    }
+
+    public void BattleMode()
+    {
+        ChangeFSM(battleState);
+    }
+
+    public void Reset()
+    {
+        ChangeFSM(fishingState);
     }
 }

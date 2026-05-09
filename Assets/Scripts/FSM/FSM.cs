@@ -23,17 +23,21 @@ public class PlayerFishing : FSM<PlayerController>
 
     public override void OnEnd(PlayerController tgt)
     {
-        if (Boot.con == null) return;
-        Boot.con.onTouch.RemoveListener(Aim);
-        Boot.con.onTouch.RemoveListener(Hook);
+        var con = Boot.con;
+        if (Log.fsm) Debug.Log("OnEnd FishingState");
+        if (con == null) return;
+        con.onTouch.RemoveListener(Aim);
+        con.onTouchUp.RemoveListener(Hook);
     }
 
     public override void OnEnter(PlayerController tgt)
     {
+        var con = Boot.con;
+        if (Log.fsm) Debug.Log("OnEnter FishingState");
         EndFishing();
-        if (Boot.con == null) return;
-        Boot.con.onTouch.AddListener(Aim);
-        Boot.con.onTouchUp.AddListener(Hook);
+        if (con == null) return;
+        con.onTouch.AddListener(Aim);
+        con.onTouchUp.AddListener(Hook);
     }
 
     public override void Tick(PlayerController tgt)
@@ -79,22 +83,53 @@ public class PlayerFishing : FSM<PlayerController>
 
 public class PlayerBattle : FSM<PlayerController>
 {
+    public float offset;
+    float dodgeDur = 30.0f;
+    float amp = .1f;
+
     public PlayerBattle(PlayerController tg) : base(tg)
     {
+        
     }
 
     public override void OnEnd(PlayerController tgt)
     {
-        throw new NotImplementedException();
+        if (Log.fsm) Debug.Log("OnEnd BattleState");
+        var con = Boot.con;
+
+        con.onTouchUp.RemoveListener(Dodge);
+        offset = 0.0f;
     }
 
     public override void OnEnter(PlayerController tgt)
     {
-        throw new NotImplementedException();
+        if (Log.fsm) Debug.Log("OnEnter FishingState");
+        var con = Boot.con;
+        con.onTouchUp.AddListener(Dodge);
     }
 
     public override void Tick(PlayerController tgt)
     {
-        throw new NotImplementedException();
+        Fish f = Boot.bat.conf.fish;
+
+        float move = Mathf.Abs(offset);
+        float sign = Mathf.Sign(offset);
+        var dir = f.transform.position - tgt.transform.position;
+        var ang = Mathf.Atan2(dir.x, dir.z) + 90.0f*sign;
+        var moveDir = new Vector3(Mathf.Cos(ang), 0.0f, Mathf.Sin(ang));
+        //tgt.transform.position += tgt.transform.right * sign*Time.deltaTime*dodgeDur;
+        offset -= sign *  Mathf.Max(0.0f, (move - Time.deltaTime * dodgeDur));
+    }
+
+    void Dodge()
+    {
+        if (Boot.con.IsLeftSidedTouch())
+        {
+            offset = -amp;
+        }
+        else
+        {
+            offset = amp;
+        }
     }
 }

@@ -15,10 +15,14 @@ public class Boot : MonoBehaviour
 
     public static PlayerController player;
 
+    public static Data Datas;
+    public Data datas;
+
 
 
     private void OnEnable()
     {
+        Datas = datas;
         if (isInit) return;
         if (Log.boot) Debug.Log("init boot");
 

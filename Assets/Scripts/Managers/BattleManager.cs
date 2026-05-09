@@ -58,11 +58,11 @@ public class BattleManager : MonoBehaviour
         Boot.fish.Catch(conf.fish);
         OnEnd();
     }
-    void OnMiss() { OnEnd(); }
 
 
     IEnumerator OnBattleRoutine()
     {
+        PlayerController p = Boot.player;
         Fish f = conf.fish;
         UIManager ui = Boot.ui;
         CameraManager cam = Boot.cam;
@@ -71,27 +71,20 @@ public class BattleManager : MonoBehaviour
         ui.PrintLog("OnHook");
         ui.SpawnCatchText(f.transform.position);
         ui.SpawnCatchImage();
-        cam.Focus(f.transform);        
-        cam.Zoom(7.0f);
-        var dir = f.transform.position - Boot.player.transform.position;
-        Debug.DrawLine(Boot.player.transform.position, Boot.player.transform.position + dir * 10.0f, Color.yellow, 10.0f);
-        var ang = Mathf.Atan2(dir.x, dir.z)*Mathf.Rad2Deg;
-        cam.Rotate(ang);
+        cam.Follow(f);
 
-        yield return Helpers.Wait(Data.PreBattleDuration);
-        ui.PrintLog("BeginBattle!!");
-        ui.BattleMode();
+        yield return Helpers.Wait(Boot.Datas.PreBattleDuration);
+        Boot.game.BattleMode();
         f.Pull();
-        enabled = true;
     }
 
     IEnumerator OnEndBattleRoutine()
     {
-        yield return Helpers.Wait(Data.PostBattleDuration);
+        yield return Helpers.Wait(Boot.Datas.PostBattleDuration);
         Boot.cam.Reset();
         Boot.fish.Kill(conf.fish);
         Boot.game.EndBattle();
-        Boot.ui.CatchMode();
+        //Boot.ui.CatchMode();
         Boot.ui.PrintLog("EndBattleState");
     }
 }
