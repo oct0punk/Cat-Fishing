@@ -17,14 +17,17 @@ public class Boot : MonoBehaviour
 
     public static Data Datas;
     public Data datas;
+    public static Log Logs;
+    public Log logs;
 
 
 
     private void OnEnable()
     {
-        Datas = datas;
         if (isInit) return;
-        if (Log.boot) Debug.Log("init boot");
+        Datas = datas;
+        Logs = logs;
+        if (Logs.boot) Debug.Log("init boot");
 
         T init<T>() where T : Component
         {
@@ -34,12 +37,12 @@ public class Boot : MonoBehaviour
                 var go = new GameObject(typeof(T).Name);
                 go.transform.SetParent(transform);
                 res = go.AddComponent<T>();
-                if (Log.boot){
+                if (Logs.boot){
                     Debug.Log("create: " + typeof(T).Name);
                 }
             }
             else {
-                if (Log.boot) {
+                if (Logs.boot) {
                     Debug.Log("init: " + typeof(T).Name);
                 }
             }
@@ -63,7 +66,7 @@ public class Boot : MonoBehaviour
     private void OnDestroy()
     {
         isInit = false;
-        if (Log.boot) 
+        if (Logs.boot) 
             Debug.LogWarning("boot destruction");
     }
 

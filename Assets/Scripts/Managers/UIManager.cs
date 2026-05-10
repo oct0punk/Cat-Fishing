@@ -39,7 +39,7 @@ public struct Menu : IScreenUI
         title.SetActive(true);
         credits.SetActive(true);
         touch.SetActive(false);
-        if (Log.ui) Debug.Log("Play Title", title);
+        if (Boot.Logs.ui) Debug.Log("Play Title", title);
 
     }
     public void TouchHint()
@@ -47,7 +47,7 @@ public struct Menu : IScreenUI
         title.SetActive(false);
         credits.SetActive(false);
         touch.SetActive(true);
-        if (Log.ui) Debug.Log("Touch Hint", touch);
+        if (Boot.Logs.ui) Debug.Log("Touch Hint", touch);
     }
     public void Display()
     {
@@ -59,7 +59,7 @@ public struct Menu : IScreenUI
         title.SetActive(false);
         credits.SetActive(false);
         touch.SetActive(false);
-        if (Log.ui) Debug.Log("Hide menu");
+        if (Boot.Logs.ui) Debug.Log("Hide menu");
     }
 }
 
@@ -73,7 +73,7 @@ public struct StaminaBar : IScreenUI
     public void Display()
     {
         parent.SetActive(true);
-        if (Log.ui)
+        if (Boot.Logs.ui)
         {
             Debug.Log("Show stamina bar", parent);
         }
@@ -81,7 +81,7 @@ public struct StaminaBar : IScreenUI
     public void Hide()
     {
         parent.SetActive(false);
-        if (Log.ui)
+        if (Boot.Logs.ui)
         {
             Debug.Log("Hide stamina bar", parent);
         }
@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour
 
     void ShowTouchHintIfNoInput()
     {
-        if (Log.ui) Debug.Log("Show hint if no touch");
+        if (Boot.Logs.ui) Debug.Log("Show hint if no touch");
         var p = Boot.player;
         if (p == null) throw Boot.MissingPlayerReference();
         if (p != null) p.onStartFishing.RemoveListener(removeMenu);
@@ -162,7 +162,7 @@ public class UIManager : MonoBehaviour
     }
     void HideTouchIfInput()
     {
-        if (Log.ui) Debug.Log("Remove hint if touch");
+        if (Boot.Logs.ui) Debug.Log("Remove hint if touch");
         menu.Hide();
         var p = Boot.player;
         if (p != null) p.onStartFishing.RemoveListener(removeMenu);

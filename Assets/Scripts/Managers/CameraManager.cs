@@ -37,7 +37,7 @@ public class CameraManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        return;
+
         bhv();
     }
 
@@ -48,36 +48,31 @@ public class CameraManager : MonoBehaviour
 
     public void Focus(Transform tgt)
     {
-        if (Log.cam) Debug.Log("Focusing: " + tgt.name);
+        if (Boot.Logs.cam) Debug.Log("Focusing: " + tgt.name);
         flw.SetTarget(tgt);
     }
 
     public void Zoom(float z)
     {
-        if (Log.cam) Debug.Log("Zooming: " + z);
+        if (Boot.Logs.cam) Debug.Log("Zooming: " + z);
         tarZoom = z;
     }
 
     public void Rotate(float ang)
     {
         tarRot = ang;// Mathf.MoveTowardsAngle(tarRot, ang, 360.0f);
-        if (Log.cam) Debug.Log("Rotating to: " + ang);
+        if (Boot.Logs.cam) Debug.Log("Rotating to: " + ang);
     }
     public void Follow(Fish f)
     {
-        var dir = f.transform.position - Boot.player.transform.position;
-        var ang = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
         flw.SetTargets(new Transform[2]{f.transform, Boot.player.transform});
         Zoom(defZoom - 1.0f);
-        Rotate(ang);
-        bhv = FollowFishBhv;
     }
 
     public void Reset()
     {   
         Focus(Boot.player.transform);
         tarZoom = defZoom;
-        //tarRot = .0f;
         bhv = StandardBhv;
     }
 
@@ -95,18 +90,6 @@ public class CameraManager : MonoBehaviour
             pivot.eulerAngles = rot;
             IsoSprite.TickAll();
         }
-    }
-
-    void FollowFishBhv()
-    {
-        Fish f = Boot.bat.conf.fish;
-        PlayerController p = Boot.player;
-        var med = (f.transform.position + p.transform.position) * .5f;
-        var pvp = pivot.position;
-        pvp.x = Mathf.SmoothDamp(pvp.x, med.x, ref vx, Boot.Datas.CamFollowSmoothing);
-        pvp.y = Mathf.SmoothDamp(pvp.y, med.y, ref vy, Boot.Datas.CamFollowSmoothing);
-        pvp.z = Mathf.SmoothDamp(pvp.z, med.z, ref vz, Boot.Datas.CamFollowSmoothing);
-        pivot.position = pvp;
     }
 
     public Quaternion LookCamRotation() => Quaternion.LookRotation(Boot.cam.main.transform.forward, Vector3.up);

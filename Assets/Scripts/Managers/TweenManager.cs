@@ -135,7 +135,7 @@ public class TweenManager : MonoBehaviour
     void Kill(Tween tw)
     {
         tweens.Remove(tw);
-        if (Log.tw)
+        if (Boot.Logs.tw)
         {
             Debug.Log("Kill tweening, Count: " + tweens.Count);
         }
@@ -144,7 +144,7 @@ public class TweenManager : MonoBehaviour
     void Play(Tween tw, float lt)
     {
         tweens[tw] = lt;
-        if (Log.tw)
+        if (Boot.Logs.tw)
         {
             Debug.Log($"{tw.GetType().Name} {tw.tr.name}, Count: {tweens.Count}", tw.tr.gameObject);
         }

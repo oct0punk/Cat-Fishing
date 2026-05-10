@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState st)
     {
         State = st;
-        if (Log.man) Debug.Log("New game state: " + State.ToString());
+        if (Boot.Logs.man) Debug.Log("New game state: " + State.ToString());
         
         //var p = Boot.Player;
         switch (st)

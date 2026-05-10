@@ -47,6 +47,12 @@ public class BattleManager : MonoBehaviour
         OnEnd();
     }
 
+    public void OnFishChangingDirection(Vector3 dir)
+    {
+        var ang = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+        Boot.cam.Rotate(ang);
+    }
+
     void OnEnd()
     {
         Boot.ui.PrintLog("OnEndBattle");

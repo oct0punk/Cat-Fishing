@@ -145,6 +145,7 @@ public class FishBattleState : FSM<Fish>
         dir = fish.transform.forward + vec.normalized;
         dir.y = 0.0f;
         dir.Normalize();
+        Boot.bat.OnFishChangingDirection(dir);
     }
 
     public override void Tick(Fish fish)

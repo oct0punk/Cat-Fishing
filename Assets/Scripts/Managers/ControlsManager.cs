@@ -20,17 +20,17 @@ public class ControlsManager : MonoBehaviour
         switch (t.phase)
         {
             case TouchPhase.Began:
-                if (Log.ev) Debug.Log("Invoke onTouchBegin");
+                if (Boot.Logs.ev) Debug.Log("Invoke onTouchBegin");
                 onTouchBegin?.Invoke();
-                if (Log.ev) Debug.Log("Invoke onTouch");
+                if (Boot.Logs.ev) Debug.Log("Invoke onTouch");
                 onTouch?.Invoke();
                 break;
             case TouchPhase.Moved:
-                if (Log.ev) Debug.Log("Invoke onTouch");
+                if (Boot.Logs.ev) Debug.Log("Invoke onTouch");
                 onTouch?.Invoke();
                 break;
             case TouchPhase.Ended:
-                if (Log.ev) Debug.Log("Invoke onTouchUp");
+                if (Boot.Logs.ev) Debug.Log("Invoke onTouchUp");
                 onTouchUp?.Invoke();
                 break;
         }

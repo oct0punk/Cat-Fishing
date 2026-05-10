@@ -8,7 +8,7 @@ public class MonoBehaviourWithEvents : MonoBehaviour
     private void OnDestroy()
     {
         if (onDestroy.GetPersistentEventCount() > 0)
-            if (Log.ev) Debug.Log("Call onDestroy", gameObject);
+            if (Boot.Logs.ev) Debug.Log("Call onDestroy", gameObject);
         onDestroy.Invoke();
     }
 }

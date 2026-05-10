@@ -34,6 +34,6 @@ public class LogText : MonoBehaviour
         text.text = mes + "\n" + text.text;
         t = dur;
         enabled = true;
-        if (Log.ui) Debug.Log("log: " + mes);
+        if (Boot.Logs.ui) Debug.Log("log: " + mes);
     }
 }

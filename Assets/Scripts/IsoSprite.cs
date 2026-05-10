@@ -11,20 +11,20 @@ public class IsoSprite : MonoBehaviour
     private void Awake()
     {        
         all.Add(this);
-        if (Log.iso)
+        if (Boot.Logs.iso)
             Debug.Log("Add 1 item to all isoSpr. Count: " + all.Count);
     }
 
     private void OnDestroy()
     {
         all.Remove(this);
-        if (Log.iso)
+        if (Boot.Logs.iso)
             Debug.Log("Remove 1 item from all isoSpr. Count: " + all.Count);
     }
 
     public void Tick()
     {
-        if (Log.iso)
+        if (Boot.Logs.iso)
             Debug.Log("Tick iso", gameObject);
 
         Quaternion lookRot = Boot.cam.LookCamRotation();
@@ -46,7 +46,7 @@ public class IsoSprite : MonoBehaviour
 
     public static void TickAll()
     {
-        if (Log.iso)
+        if (Boot.Logs.iso)
             Debug.Log("Tick all, Count: " + all.Count);
         foreach (var spr in all)
         {

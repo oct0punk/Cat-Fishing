@@ -24,7 +24,7 @@ public class PlayerFishingState : FSM<PlayerController>
     public override void OnEnd(PlayerController tgt)
     {
         var con = Boot.con;
-        if (Log.fsm) Debug.Log("OnEnd FishingState");
+        if (Boot.Logs.fsm) Debug.Log("OnEnd FishingState");
         if (con == null) return;
         con.onTouch.RemoveListener(Aim);
         con.onTouchUp.RemoveListener(Hook);
@@ -33,7 +33,7 @@ public class PlayerFishingState : FSM<PlayerController>
     public override void OnEnter(PlayerController tgt)
     {
         var con = Boot.con;
-        if (Log.fsm) Debug.Log("OnEnter FishingState");
+        if (Boot.Logs.fsm) Debug.Log("OnEnter FishingState");
         EndFishing();
         if (con == null) return;
         con.onTouch.AddListener(Aim);
@@ -48,7 +48,7 @@ public class PlayerFishingState : FSM<PlayerController>
     public void StartFishing()
     {
         tgt.isFishing = true;
-        if (Log.ev) Debug.Log("Invoke onStartFishing event. Size: " + tgt.onStartFishing.GetPersistentEventCount());
+        if (Boot.Logs.ev) Debug.Log("Invoke onStartFishing event. Size: " + tgt.onStartFishing.GetPersistentEventCount());
         tgt.hook.transform.SetPositionAndRotation(aimPos, Quaternion.identity);
         tgt.onStartFishing.Invoke();
     }
@@ -60,7 +60,7 @@ public class PlayerFishingState : FSM<PlayerController>
 
     void Hook()
     {
-        if (Log.inp) Debug.Log("Hook action");
+        if (Boot.Logs.inp) Debug.Log("Hook action");
         if (!tgt.isFishing)
         {
             StartFishing();
@@ -74,7 +74,7 @@ public class PlayerFishingState : FSM<PlayerController>
     void Aim()
     {
         if (Boot.cam == null) return;
-        if (Log.inp) Debug.Log("Aim event");
+        if (Boot.Logs.inp) Debug.Log("Aim event");
         var cam = Boot.cam.main;
         var wpos = cam.ScreenToWorldPoint(Boot.con.tPos);
         aimPos = Helpers.LinePlaneIntersection(wpos, cam.transform.forward, Vector3.zero, Vector3.up);
@@ -94,7 +94,7 @@ public class PlayerBattleState : FSM<PlayerController>
 
     public override void OnEnd(PlayerController tgt)
     {
-        if (Log.fsm) Debug.Log("OnEnd BattleState");
+        if (Boot.Logs.fsm) Debug.Log("OnEnd BattleState");
         var con = Boot.con;
 
         con.onTouchUp.RemoveListener(Dodge);
@@ -103,7 +103,7 @@ public class PlayerBattleState : FSM<PlayerController>
 
     public override void OnEnter(PlayerController tgt)
     {
-        if (Log.fsm) Debug.Log("OnEnter FishingState");
+        if (Boot.Logs.fsm) Debug.Log("OnEnter FishingState");
         var con = Boot.con;
         con.onTouchUp.AddListener(Dodge);
     }

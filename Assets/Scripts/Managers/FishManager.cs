@@ -25,7 +25,7 @@ public class FishManager : MonoBehaviour
     {
         coll[fish.dat]++;
         fish.enabled = false;
-        if (Log.fish) Debug.Log("Catch " + fish.dat.id + ": " + coll[fish.dat]);
+        if (Boot.Logs.fish) Debug.Log("Catch " + fish.dat.id + ": " + coll[fish.dat]);
     }
 
     public void Kill(Fish f)

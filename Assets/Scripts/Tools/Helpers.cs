@@ -29,7 +29,7 @@ public static class Helpers
         {
             waits[dur] = new WaitForSeconds(dur);
         }
-        if (Log.boot) Debug.Log("wait for " + dur);
+        if (Boot.Logs.boot) Debug.Log("wait for " + dur);
         return waits[dur];
     }
     public static Color ColAlpha(Vector3 rgb, float alpha)  => new(rgb.x, rgb.y, rgb.z, alpha);

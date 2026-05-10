@@ -67,7 +67,6 @@ public class Fish : MonoBehaviourWithEvents, IProduct
             transform.position, pos, spd * Time.deltaTime),
             Quaternion.Euler(0.0f, ang+90.0f, 0.0f));
 
-        if (Log.fish) Debug.DrawLine(transform.position, pos, Color.yellow);
+        if (Boot.Logs.fish) Debug.DrawLine(transform.position, pos, Color.yellow);
     }
-
 }
