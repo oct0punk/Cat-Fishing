@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+
 
 public class FollowTarget : MonoBehaviour
 {
@@ -42,9 +42,9 @@ public class FollowTarget : MonoBehaviour
 
     Vector3 GetMedPoint()
     {
-        if (targets == null)    return transform.position;
-        if (targets.Length==0)  return transform.position;
-        if (targets.Length == 1) return targets[0].position;
+        if (targets == null)     return transform.position;
+        if (targets.Length == 0) return transform.position;
+        if (targets.Length == 1)  return targets[0].position;
         Vector3 pos = Vector3.zero;
         foreach (Transform t in targets)
         {
@@ -57,6 +57,9 @@ public class FollowTarget : MonoBehaviour
     public void Sync()
     {
         tgtPos = GetMedPoint() + offset;
+        if (!x) tgtPos.x = transform.position.x;
+        if (!y) tgtPos.y = transform.position.y;
+        if (!z) tgtPos.z = transform.position.z;
 
         transform.position = tgtPos;
     }

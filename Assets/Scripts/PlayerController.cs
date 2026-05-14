@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    FSM<PlayerController>   fsm;
+    FSM<PlayerController>        fsm;
     PlayerFishingState           fishingState;
     PlayerBattleState            battleState;
 
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         fishingState.OnEnter(this);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         fsm.Tick(this);
     }

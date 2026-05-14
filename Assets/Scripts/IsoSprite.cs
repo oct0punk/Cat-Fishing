@@ -39,7 +39,7 @@ public class IsoSprite : MonoBehaviour
         foreach (var iso in Resources.FindObjectsOfTypeAll(typeof(IsoSprite)))
         {
             all.Add(iso.GetComponent<IsoSprite>());
-            Debug.Log("add: " + iso.name + ", Count: " + all.Count);
+            if (Boot.Logs.iso) Debug.Log("add: " + iso.name + ", Count: " + all.Count);
         }
         TickAll();
     }

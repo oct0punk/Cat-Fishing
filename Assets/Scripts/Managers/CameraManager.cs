@@ -65,8 +65,13 @@ public class CameraManager : MonoBehaviour
     }
     public void Follow(Fish f)
     {
-        flw.SetTargets(new Transform[2]{f.transform, Boot.player.transform});
+        //flw.SetTargets(new Transform[2]{f.transform, Boot.player.transform});
+        flw.SetTarget(f.transform);
+        flw.offset.y = -4f;
         Zoom(defZoom - 1.0f);
+        var dir = f.transform.position - Boot.player.transform.position;
+        var ang = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+        Boot.cam.Rotate(ang);
     }
 
     public void Reset()
@@ -74,6 +79,7 @@ public class CameraManager : MonoBehaviour
         Focus(Boot.player.transform);
         tarZoom = defZoom;
         bhv = StandardBhv;
+        flw.offset = Vector3.zero;
     }
 
     void StandardBhv()
@@ -83,7 +89,7 @@ public class CameraManager : MonoBehaviour
             main.orthographicSize = Mathf.SmoothDamp(main.orthographicSize, tarZoom, ref zoomVel, Time.deltaTime * zoomSpeed);
         }
 
-        if (Mathf.DeltaAngle(pivot.eulerAngles.y, tarRot) > 0.000001f)
+        //if (Mathf.DeltaAngle(pivot.eulerAngles.y, tarRot) > 0.000001f)
         {
             var rot = pivot.eulerAngles;
             rot.y = Mathf.SmoothDampAngle(rot.y, tarRot, ref rotVel, rotDuration);

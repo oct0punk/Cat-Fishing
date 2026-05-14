@@ -348,6 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
   maxHp: 0
   curHp: 0
+  dir: {x: 0, y: 0, z: 0}
 --- !u!1 &348719922
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,9 +380,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boot
   datas:
     maxFishCount: 6
+    PlayerDodgeMarge: 20
+    PlayerDodgeSpeed: 30
     PreBattleDuration: 1.3
     PostBattleDuration: 0
     CamFollowSmoothing: 0.4
+  logs:
+    boot: 0
+    cam: 0
+    ddg: 0
+    ev: 0
+    fac: 0
+    fish: 0
+    fsm: 0
+    inp: 0
+    iso: 0
+    man: 0
+    ui: 0
+    tw: 0
 --- !u!4 &348719924
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +448,7 @@ Transform:
   m_GameObject: {fileID: 358512655}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -453,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FollowTarget
   targets:
   - {fileID: 762910911}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: -4, z: 0}
   smooth: 0.1
   x: 1
   y: 1
@@ -641,7 +657,7 @@ Transform:
   m_GameObject: {fileID: 480046206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -661,7 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FollowTarget
   targets:
   - {fileID: 358512656}
-  offset: {x: 0, y: -0.4, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   smooth: 0
   x: 1
   y: 0
@@ -992,7 +1008,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55, y: -102, z: 0}
 --- !u!114 &762910912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,7 +1302,7 @@ RectTransform:
   m_Father: {fileID: 1332208989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.94188035, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2367,7 +2383,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1826714486
 MonoBehaviour:

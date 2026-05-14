@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class FishAppearingState : FSM<Fish>
 {
-    SpriteRenderer rdr;
-    Vector3 tarPos;
+    SpriteRenderer  rdr;
+    Vector3         tarPos;
 
     public FishAppearingState(Fish fish) : base(fish)
     {
@@ -142,7 +142,8 @@ public class FishBattleState : FSM<Fish>
             throw Boot.MissingPlayerReference();
         }
         Vector3 vec = fish.transform.position - p.transform.position;
-        dir = fish.transform.forward + vec.normalized;
+        //dir = fish.transform.forward + vec.normalized;
+        dir = vec;
         dir.y = 0.0f;
         dir.Normalize();
         Boot.bat.OnFishChangingDirection(dir);
@@ -152,13 +153,5 @@ public class FishBattleState : FSM<Fish>
     {
         fish.MoveTo(fish.transform.position + dir * 3000.0f, fish.dat.pullingSpeed);
         p.hook.transform.SetPositionAndRotation(fish.transform.position, Quaternion.identity);
-
-        Vector3 vec = fish.transform.position - p.transform.position;
-        if (vec.magnitude > p.lineL)
-        {
-            p.transform.SetPositionAndRotation(
-                fish.transform.position - vec.normalized * p.lineL, 
-                p.transform.rotation);
-        }
     }
 }

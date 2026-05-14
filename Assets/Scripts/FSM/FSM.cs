@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 
@@ -84,12 +83,37 @@ public class PlayerFishingState : FSM<PlayerController>
 public class PlayerBattleState : FSM<PlayerController>
 {
     public float offset;
-    float dodgeDur = 30.0f;
-    float amp = .1f;
+    Vector3 vel;
+    Fish f;
+    ControlsManager con;
+
+    GameObject r;
+    GameObject l;
+    GameObject t;
+
+
+    void show_cubes(bool val)
+    {
+        if (!Boot.Logs.ddg) val = false;
+        r.SetActive(val);
+        l.SetActive(val);
+        t.SetActive(val);
+    }
 
     public PlayerBattleState(PlayerController tg) : base(tg)
     {
-        
+        GameObject cr(string name)
+        {
+            var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go.transform.localScale = Vector3.one * .4f;
+            go.transform.rotation = Quaternion.identity;
+            go.name = name;
+            return go;
+        }
+        r = cr("right");
+        l = cr("left");
+        t = cr("tar");
+        show_cubes(false);
     }
 
     public override void OnEnd(PlayerController tgt)
@@ -97,39 +121,57 @@ public class PlayerBattleState : FSM<PlayerController>
         if (Boot.Logs.fsm) Debug.Log("OnEnd BattleState");
         var con = Boot.con;
 
-        con.onTouchUp.RemoveListener(Dodge);
-        offset = 0.0f;
+        con.onTouch.RemoveListener(Dodge);
+        show_cubes(false);
     }
 
     public override void OnEnter(PlayerController tgt)
     {
         if (Boot.Logs.fsm) Debug.Log("OnEnter FishingState");
-        var con = Boot.con;
-        con.onTouchUp.AddListener(Dodge);
+        f = Boot.bat.conf.fish;
+        con = Boot.con;
+        con.onTouch.AddListener(Dodge);
+        offset = 0.0f;
+        show_cubes(true);
     }
 
     public override void Tick(PlayerController tgt)
     {
-        Fish f = Boot.bat.conf.fish;
+        var h = f.transform.position  + -Boot.bat.dir * tgt.lineL;
+        var tar = h + f.transform.right * offset;
+                
+        if (Boot.Logs.ddg)
+        {
+            show_cubes(true);
+            var proj = Helpers.ProjPointOnSeg(tgt.transform.position, h, f.transform.right);
+            l.transform.position = h + f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
+            r.transform.position = h - f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
+            t.transform.position = proj;
 
-        float move = Mathf.Abs(offset);
-        float sign = Mathf.Sign(offset);
-        var dir = f.transform.position - tgt.transform.position;
-        var ang = Mathf.Atan2(dir.x, dir.z) + 90.0f*sign;
-        var moveDir = new Vector3(Mathf.Cos(ang), 0.0f, Mathf.Sin(ang));
-        //tgt.transform.position += tgt.transform.right * sign*Time.deltaTime*dodgeDur;
-        offset -= sign *  Mathf.Max(0.0f, (move - Time.deltaTime * dodgeDur));
+            Debug.DrawLine(tgt.transform.position,  tar,    Color.white);
+            Debug.DrawLine(f.transform.position,    h,      Color.yellow);
+            Debug.DrawLine(f.transform.position,    f.transform.position 
+                                                  + f.transform.right*offset, Color.red);
+            Debug.Log("offset: " + offset);
+        }
+
+        // tgt.transform.position = Vector3.SmoothDamp(tgt.transform.position, tar, ref vel, .1f);
+        tgt.transform.position = Vector3.MoveTowards(tgt.transform.position, tar, Time.fixedDeltaTime * 20.0f);
     }
 
     void Dodge()
     {
-        if (Boot.con.IsLeftSidedTouch())
-        {
-            offset = -amp;
-        }
-        else
-        {
-            offset = amp;
-        }
+        //if (Boot.con.IsLeftSidedTouch())
+        //{
+        //    offset -= .1f;
+        //}
+        //else
+        //{
+        //    offset += .1f;
+        //}
+        offset += (Boot.con.GetTouchScreenPos().x - .5f)*Boot.Datas.PlayerDodgeSpeed*Time.deltaTime;
+        offset = Mathf.Clamp(offset,
+            Boot.Datas.PlayerDodgeMarge * -.5f,
+            Boot.Datas.PlayerDodgeMarge *  .5f);
     }
 }

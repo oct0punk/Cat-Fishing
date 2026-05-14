@@ -23,21 +23,28 @@ public class ControlsManager : MonoBehaviour
                 if (Boot.Logs.ev) Debug.Log("Invoke onTouchBegin");
                 onTouchBegin?.Invoke();
                 if (Boot.Logs.ev) Debug.Log("Invoke onTouch");
-                onTouch?.Invoke();
+                //onTouch?.Invoke();
                 break;
             case TouchPhase.Moved:
                 if (Boot.Logs.ev) Debug.Log("Invoke onTouch");
-                onTouch?.Invoke();
+                //onTouch?.Invoke();
                 break;
             case TouchPhase.Ended:
                 if (Boot.Logs.ev) Debug.Log("Invoke onTouchUp");
                 onTouchUp?.Invoke();
                 break;
         }
+        onTouch?.Invoke();
     }
 
     public bool IsLeftSidedTouch()
     {
         return tPos.x < Screen.width * 0.5f;
+    }
+    public Vector2 GetTouchScreenPos()
+    {
+        return new Vector2(
+            tPos.x / Screen.width, 
+            tPos.y / Screen.height);
     }
 }

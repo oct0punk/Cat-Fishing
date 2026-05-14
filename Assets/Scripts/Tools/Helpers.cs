@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public static class Helpers
 {    
     public static Vector3 LinePlaneIntersection(Vector3 l_st, Vector3 l_dir, Vector3 p_co, Vector3 p_no)
@@ -16,9 +17,20 @@ public static class Helpers
         }
         return l_st;
     }
-    public static Vector2 WorldToScreen(Vector3 world)
+
+    public static Vector3 ProjPointOnSeg(Vector3 p, Vector3 segStart, Vector3 segDir)
     {
-        return RectTransformUtility.WorldToScreenPoint(Boot.cam.main, world);
+        Vector3 relPos = p - segStart;
+        segDir.Normalize();
+        if (relPos.magnitude < 1e-5f) return p;
+        return segStart + segDir*Vector3.Dot(relPos, segDir);
+    }
+
+    public static Vector2 WorldToScreen(Vector3 world) { return RectTransformUtility.WorldToScreenPoint(Boot.cam.main, world); }
+    public static Vector2 ScreenToWater(Vector2 scrpos)
+    { 
+        var ray = RectTransformUtility.ScreenPointToRay(Boot.cam.main, scrpos);
+        return LinePlaneIntersection(ray.origin, ray.direction, Vector3.zero, Vector3.up);
     }
 
     
@@ -32,6 +44,7 @@ public static class Helpers
         if (Boot.Logs.boot) Debug.Log("wait for " + dur);
         return waits[dur];
     }
+    
     public static Color ColAlpha(Vector3 rgb, float alpha)  => new(rgb.x, rgb.y, rgb.z, alpha);
     public static Color ColAlpha(Color rgb, float alpha)    => new(rgb.r, rgb.g, rgb.b, alpha);
 }

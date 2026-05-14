@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour
 {
     public float maxHp;
     public float curHp;
+    public Vector3 dir;
     public SBattleDatas conf;
 
 
@@ -49,6 +50,8 @@ public class BattleManager : MonoBehaviour
 
     public void OnFishChangingDirection(Vector3 dir)
     {
+        dir.Normalize();
+        this.dir = dir;
         var ang = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
         Boot.cam.Rotate(ang);
     }

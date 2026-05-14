@@ -15,10 +15,10 @@ public class Boot : MonoBehaviour
 
     public static PlayerController player;
 
-    public static Data Datas;
-    public Data datas;
-    public static Log Logs;
-    public Log logs;
+    public static   Data Datas;
+    public          Data datas;
+    public static   Log Logs;
+    public          Log logs;
 
 
 
