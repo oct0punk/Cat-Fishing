@@ -28,5 +28,5 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviourWithEven
         if (Boot.Logs.fac) Debug.Log("remove an iter: " + all.Count);
     }
 
-    public abstract void OnCreate(T inst);
+    public abstract void OnCreate(T prod);
 }

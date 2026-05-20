@@ -17,5 +17,5 @@ MonoBehaviour:
   force: 10
   normalSpeed: 6
   chargeSpeed: 20
-  pullingSpeed: 6.96
+  pullingSpeed: 15.07
   spr: {fileID: -1915776564401465818, guid: 209839017c1c19440abec4fcd26708de, type: 3}

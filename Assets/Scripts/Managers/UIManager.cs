@@ -235,6 +235,7 @@ public class UIManager : MonoBehaviour
         var tmp = go.AddComponent<TextMeshProUGUI>();
         tmp.rectTransform.anchorMin = Vector2.zero;
         tmp.rectTransform.anchorMax = Vector2.zero;
+        tmp.text = txt;
         go.transform.SetParent(canvas.transform, false);
         return tmp;
     }

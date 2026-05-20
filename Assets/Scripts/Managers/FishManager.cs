@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
 
 
@@ -9,6 +8,7 @@ public class FishManager : MonoBehaviour
     [SerializeField] FishFactory fishFac;
     public FishData data;
     public Dictionary<FishData, int> coll = new();
+
 
     public void Spawn()
     {
