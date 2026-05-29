@@ -47,5 +47,6 @@ public class GameManager : MonoBehaviour
         Boot.player.Reset();
         Boot.ui.WaitMode();
         Boot.player.EndFishing();
+        Boot.con.TouchFlag();
     }
 }
