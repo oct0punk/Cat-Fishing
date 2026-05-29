@@ -31,8 +31,9 @@ public class IsoSprite : MonoBehaviour
         transform.rotation = lookRot;// * Quaternion.AngleAxis(transform.eulerAngles.z, Vector3.forward);
     }
 
-
+#if UNITY_EDITOR
     [MenuItem("Developer/Rotate all iso sprites")]
+#endif
     public static void TickAllComponents()
     {
         all.Clear();
