@@ -1,16 +1,6 @@
 using UnityEngine;
 
 
-public abstract class FSM<T>
-{
-    protected T tgt;
-    public FSM(T tg) { tgt = tg; }
-    public abstract void OnEnter(T tgt);
-    public abstract void OnEnd(T tgt);
-    public abstract void Tick(T tgt);
-}
-
-
 public class PlayerFishingState : FSM<PlayerController>
 {
     Vector3 aimPos;
@@ -139,7 +129,7 @@ public class PlayerBattleState : FSM<PlayerController>
     {
         var h = f.transform.position - Boot.bat.dir * (tgt.lineL * Boot.bat.GetProg() + Boot.Datas.PlayerCatchRange);
         var tar = h + f.transform.right * offset;
-                
+
         if (Boot.Logs.ddg)
         {
             show_cubes(true);
@@ -148,10 +138,10 @@ public class PlayerBattleState : FSM<PlayerController>
             r.transform.position = h - f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
             t.transform.position = proj;
 
-            Debug.DrawLine(tgt.transform.position,  tar,    Color.white);
-            Debug.DrawLine(f.transform.position,    h,      Color.yellow);
-            Debug.DrawLine(f.transform.position,    f.transform.position 
-                                                  + f.transform.right*offset, Color.red);
+            Debug.DrawLine(tgt.transform.position, tar, Color.white);
+            Debug.DrawLine(f.transform.position, h, Color.yellow);
+            Debug.DrawLine(f.transform.position, f.transform.position
+                                                  + f.transform.right * offset, Color.red);
             Debug.Log("offset: " + offset);
         }
 
@@ -169,10 +159,10 @@ public class PlayerBattleState : FSM<PlayerController>
         //{
         //    offset += .1f;
         //}
-        offset += (Boot.con.GetTouchScreenPos().x - .5f)*Boot.Datas.PlayerDodgeSpeed*Time.deltaTime;
+        offset += (Boot.con.GetTouchScreenPos().x - .5f) * Boot.Datas.PlayerDodgeSpeed * Time.deltaTime;
         offset = Mathf.Clamp(offset,
             Boot.Datas.PlayerDodgeMarge * -.5f,
-            Boot.Datas.PlayerDodgeMarge *  .5f);
+            Boot.Datas.PlayerDodgeMarge * .5f);
     }
 }
 
@@ -195,5 +185,5 @@ public class PlayerCatchState : FSM<PlayerController>
         spr.color = Color.violet;
     }
 
-    public override void Tick(PlayerController tgt) {}
+    public override void Tick(PlayerController tgt) { }
 }

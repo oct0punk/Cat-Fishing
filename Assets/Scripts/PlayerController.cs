@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     FSM<PlayerController>        fsm;
     PlayerFishingState           fishingState;
     PlayerBattleState            battleState;
+    PlayerCatchState             catchState;
 
     public bool isFishing;
     public float        lineL = 6.0f;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
         fishingState    = new PlayerFishingState(this);
         battleState     = new PlayerBattleState(this);
+        catchState      = new PlayerCatchState(this);
         fsm = fishingState;
         fishingState.OnEnter(this);
     }
@@ -43,9 +45,10 @@ public class PlayerController : MonoBehaviour
         fsm.OnEnter(this);
     }
 
-    public void EndFishing()
+    public void CatchMode()
     {
         fishingState.EndFishing();
+        ChangeFSM(catchState);
     }
 
     public void BattleMode()

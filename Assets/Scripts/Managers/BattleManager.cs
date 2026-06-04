@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour
         if (curHp < 0.0f)
             OnCatch();
         else
-            Boot.ui.SetStamina(curHp / maxHp);
+            Boot.ui.SetStamina(GetProg());
     }
 
     public void Init(SBattleDatas c)
@@ -54,6 +54,12 @@ public class BattleManager : MonoBehaviour
         this.dir = dir;
         var ang = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
         Boot.cam.Rotate(ang);
+    }
+
+    public float GetProg()
+    {
+        if (maxHp == 0) return 1.0f;
+        return curHp / maxHp;
     }
 
     void OnEnd()
