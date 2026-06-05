@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fish : MonoBehaviourWithEvents, IProduct
 {
-    FSM<Fish>           fsm;
+    FSM<Fish>               fsm;
     FishAppearingState      appearingState;
     FishIdleState           idleState;
     FishBiteState           biteState;

@@ -79,7 +79,7 @@ public class FishBiteState : FSM<Fish>
         float dist = Vector3.Distance(hook.position, fish.transform.position);
         if (dist < 0.01f)
         {
-            Boot.game.EnterBattle(new SBattleDatas(fish));
+            Boot.game.BeforeBattle(new SBattleDatas(fish));
         }
     }
 }

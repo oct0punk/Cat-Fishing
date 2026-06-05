@@ -8,6 +8,7 @@ public class Log
     public /*const*/ bool fac   = false;
     public /*const*/ bool fish  = false;
     public /*const*/ bool fsm   = false;
+    public /*const*/ bool game  = false;
     public /*const*/ bool inp   = false;
     public /*const*/ bool iso   = false;
     public /*const*/ bool man   = false;

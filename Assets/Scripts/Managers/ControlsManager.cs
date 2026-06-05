@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class ControlsManager : MonoBehaviour
 {
-    bool touchFlag = false;
+    bool isWaitingForNoTouch = false;
 
     public Vector2 tPos { get; private set; }
     public UnityEvent onTouch;
@@ -15,7 +15,18 @@ public class ControlsManager : MonoBehaviour
     private void Update()
     {
         // Focus on index 0
-        if (Input.touches.Length <= 0) return;
+
+        if (isWaitingForNoTouch)
+        {
+            if (Input.touches.Length <= 0)
+            {
+                isWaitingForNoTouch = false;
+                if (Boot.Logs.inp) Debug.Log("re-enable touch after pointer up");
+            }
+            return;
+        }
+        if (Input.touches.Length <= 0) return; 
+
         Touch t = Input.touches[0];
 
         tPos = t.position;
@@ -32,12 +43,6 @@ public class ControlsManager : MonoBehaviour
                 //onTouch?.Invoke();
                 break;
             case TouchPhase.Ended:
-                if (touchFlag)
-                {
-                    touchFlag = false;
-                    if (Boot.Logs.inp) Debug.Log("re-enable touch after pointer up");
-                    break;
-                }
                 if (Boot.Logs.ev) Debug.Log("Invoke onTouchUp");
                 onTouchUp?.Invoke();
                 break;
@@ -45,22 +50,32 @@ public class ControlsManager : MonoBehaviour
         onTouch?.Invoke();
     }
 
+
     public bool IsLeftSidedTouch()
     {
         return tPos.x < Screen.width * 0.5f;
     }
+
     public Vector2 GetTouchScreenPos()
     {
         return new Vector2(
             tPos.x / Screen.width, 
             tPos.y / Screen.height);
     }
-    public void TouchFlag()
+
+    public void WaitForNoTouch()
     {
         if (Input.touchCount > 0)
         {
             if (Boot.Logs.inp) Debug.Log("lock touch while pointer is down");
-            touchFlag = true;
+            isWaitingForNoTouch = true;
         }
+    }
+
+    public void RemoveAllListeners()
+    {
+        onTouch.RemoveAllListeners();
+        onTouchBegin.RemoveAllListeners();
+        onTouchUp.RemoveAllListeners();
     }
 }

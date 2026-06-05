@@ -4,12 +4,14 @@ using UnityEngine;
 public enum GameState
 {
     Fishing,
-    Battle
+    Battle,
+    Catch,
 }
 
 public class GameManager : MonoBehaviour
 {
     public GameState State { get; private set; }
+
 
     public void ChangeState(GameState st)
     {
@@ -17,36 +19,41 @@ public class GameManager : MonoBehaviour
         if (Boot.Logs.man) Debug.Log("New game state: " + State.ToString());
         
         //var p = Boot.Player;
-        switch (st)
-        {
-            case GameState.Fishing:
-                break;
-            case GameState.Battle:
-                break;
-        }
+        //switch (st)
     }
 
-    public void EnterBattle(SBattleDatas battle)
+    public void Fishing()
+    {
+        if (Boot.Logs.game) Debug.Log("Fishing State");
+        Boot.con.RemoveAllListeners();
+        ChangeState(GameState.Fishing);
+        Boot.player.Fishing();
+        Boot.ui.FishingUI();
+        Boot.con.WaitForNoTouch();
+    }
+
+    public void BeforeBattle(SBattleDatas battle)
     {
         if (State == GameState.Battle) return;
         ChangeState(GameState.Battle);
         Boot.bat.Init(battle);
     }
-
-    public void BattleMode()
+    public void Battle()
     {
+        if (Boot.Logs.game) Debug.Log("Battle State");
         Boot.ui.PrintLog("BeginBattle!!");
-        Boot.ui.BattleMode();
+        Boot.ui.BattleUI();
         Boot.player.BattleMode();
         Boot.bat.enabled = true;
     }
 
-    public void EndBattle()
+    public void Catch()
     {
-        ChangeState(GameState.Fishing);
-        Boot.player.Reset();
-        Boot.ui.WaitMode();
-        Boot.player.EndFishing();
-        Boot.con.TouchFlag();
+        if (Boot.Logs.game) Debug.Log("Catch State");
+        ChangeState(GameState.Catch);
+        Boot.ui.CatchUI();
+        Boot.player.CatchMode();
+        Boot.con.WaitForNoTouch();
+        Boot.con.onTouchUp.AddListener(Fishing);
     }
 }

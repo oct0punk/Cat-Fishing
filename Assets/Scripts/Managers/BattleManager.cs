@@ -89,7 +89,7 @@ public class BattleManager : MonoBehaviour
         cam.Follow(f);
 
         yield return Helpers.Wait(Boot.Datas.PreBattleDuration);
-        Boot.game.BattleMode();
+        Boot.game.Battle();
         f.Battle();
     }
 
@@ -98,7 +98,7 @@ public class BattleManager : MonoBehaviour
         yield return Helpers.Wait(Boot.Datas.PostBattleDuration);
         Boot.cam.Reset();
         Boot.fish.Kill(conf.fish);
-        Boot.game.EndBattle();
+        Boot.game.Catch();
         //Boot.ui.CatchMode();
         Boot.ui.PrintLog("EndBattleState");
     }

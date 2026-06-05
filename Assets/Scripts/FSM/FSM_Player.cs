@@ -13,7 +13,7 @@ public class PlayerFishingState : FSM<PlayerController>
     public override void OnEnd(PlayerController tgt)
     {
         var con = Boot.con;
-        if (Boot.Logs.fsm) Debug.Log("OnEnd FishingState");
+        //if (Boot.Logs.fsm) Debug.Log("FishingState: OnEnd");
         if (con == null) return;
         con.onTouch.RemoveListener(Aim);
         con.onTouchUp.RemoveListener(Hook);
@@ -22,7 +22,7 @@ public class PlayerFishingState : FSM<PlayerController>
     public override void OnEnter(PlayerController tgt)
     {
         var con = Boot.con;
-        if (Boot.Logs.fsm) Debug.Log("OnEnter FishingState");
+        if (Boot.Logs.fsm) Debug.Log("FishingState: OnEnter");
         EndFishing();
         if (con == null) return;
         con.onTouch.AddListener(Aim);
@@ -108,7 +108,7 @@ public class PlayerBattleState : FSM<PlayerController>
 
     public override void OnEnd(PlayerController tgt)
     {
-        if (Boot.Logs.fsm) Debug.Log("OnEnd BattleState");
+        //if (Boot.Logs.fsm) Debug.Log("BattleState: OnEnd");
         var con = Boot.con;
 
         con.onTouch.RemoveListener(Dodge);
@@ -117,7 +117,7 @@ public class PlayerBattleState : FSM<PlayerController>
 
     public override void OnEnter(PlayerController tgt)
     {
-        if (Boot.Logs.fsm) Debug.Log("OnEnter FishingState");
+        if (Boot.Logs.fsm) Debug.Log("BattleState: OnEnter");
         f = Boot.bat.conf.fish;
         con = Boot.con;
         con.onTouch.AddListener(Dodge);
@@ -177,11 +177,13 @@ public class PlayerCatchState : FSM<PlayerController>
 
     public override void OnEnd(PlayerController tgt)
     {
+        //if (Boot.Logs.fsm) Debug.Log("CatchState: OnEnd");
         spr.color = Color.white;
     }
 
     public override void OnEnter(PlayerController tgt)
     {
+        if (Boot.Logs.fsm) Debug.Log("CatchState: OnEnter");
         spr.color = Color.violet;
     }
 

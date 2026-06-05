@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void ChangeFSM(FSM<PlayerController> o)
     {
-        if (Boot.Logs.fsm) Debug.Log("Change FSM state from " + fsm.GetType().Name + " to " + o.GetType().Name, gameObject);
+        //if (Boot.Logs.fsm) Debug.Log("Change FSM state from " + fsm.GetType().Name + " to " + o.GetType().Name, gameObject);
         fsm.OnEnd(this);
         fsm = o;
         fsm.OnEnter(this);
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         ChangeFSM(battleState);
     }
 
-    public void Reset()
+    public void Fishing()
     {
         ChangeFSM(fishingState);
     }

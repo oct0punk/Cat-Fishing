@@ -128,8 +128,8 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        screens = new IScreenUI[3] { menu, bar, new PlayScreen() };
-        MenuMode();
+        screens = new IScreenUI[4] { menu, bar, new PlayScreen(), catchScreen };
+        MenuUI();
     }
 
     void Focus<T>() where T : IScreenUI
@@ -168,7 +168,7 @@ public class UIManager : MonoBehaviour
         if (p != null) p.onStartFishing.RemoveListener(removeMenu);
     }
 
-    public void MenuMode()
+    public void MenuUI()
     {
         Focus<Menu>();
         removeMenu = () => { 
@@ -179,9 +179,9 @@ public class UIManager : MonoBehaviour
         Boot.player.onStartFishing.AddListener(removeMenu);
         Invoke(nameof(ShowTouchHintIfNoInput), 3.0f);
     }
-    public void WaitMode() => NoScreen();
-    public void BattleMode() => Focus<StaminaBar>();
-    public void CatchMode() => Focus<CatchScreen>();
+    public void FishingUI() => NoScreen();
+    public void BattleUI() => Focus<StaminaBar>();
+    public void CatchUI() => Focus<CatchScreen>();
 
     public void SetStamina(float progress)
     {
