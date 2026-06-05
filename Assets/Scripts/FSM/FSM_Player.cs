@@ -127,21 +127,25 @@ public class PlayerBattleState : FSM<PlayerController>
 
     public override void Tick(PlayerController tgt)
     {
-        var h = f.transform.position - Boot.bat.dir * (tgt.lineL * Boot.bat.GetProg() + Boot.Datas.PlayerCatchRange);
-        var tar = h + f.transform.right * offset;
+        var dist = tgt.lineL * Boot.bat.GetProg() + Boot.Datas.PlayerCatchRange;
+        var st = f.transform.position;
+        var dir = -Boot.bat.dir;
+        var tar = st + Quaternion.Euler(0f, offset, 0f) * dir * dist;
 
+        //var h = f.transform.position - Boot.bat.dir * (tgt.lineL * Boot.bat.GetProg() + Boot.Datas.PlayerCatchRange);
+        //var tar = h + f.transform.right * offset;
         if (Boot.Logs.ddg)
         {
-            show_cubes(true);
-            var proj = Helpers.ProjPointOnSeg(tgt.transform.position, h, f.transform.right);
-            l.transform.position = h + f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
-            r.transform.position = h - f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
-            t.transform.position = proj;
+            //show_cubes(true);
+            //var proj = Helpers.ProjPointOnSeg(tgt.transform.position, h, f.transform.right);
+            //l.transform.position = h + f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
+            //r.transform.position = h - f.transform.right * Boot.Datas.PlayerDodgeMarge / 2;
+            //t.transform.position = proj;
 
-            Debug.DrawLine(tgt.transform.position, tar, Color.white);
-            Debug.DrawLine(f.transform.position, h, Color.yellow);
-            Debug.DrawLine(f.transform.position, f.transform.position
-                                                  + f.transform.right * offset, Color.red);
+            //Debug.DrawLine(tgt.transform.position, tar, Color.white);
+            //Debug.DrawLine(f.transform.position, h, Color.yellow);
+            //Debug.DrawLine(f.transform.position, f.transform.position
+            //                                      + f.transform.right * offset, Color.red);
             Debug.Log("offset: " + offset);
         }
 
@@ -161,8 +165,8 @@ public class PlayerBattleState : FSM<PlayerController>
         //}
         offset += (Boot.con.GetTouchScreenPos().x - .5f) * Boot.Datas.PlayerDodgeSpeed * Time.deltaTime;
         offset = Mathf.Clamp(offset,
-            Boot.Datas.PlayerDodgeMarge * -.5f,
-            Boot.Datas.PlayerDodgeMarge * .5f);
+            Boot.Datas.PlayerDodgeArc * -.5f,
+            Boot.Datas.PlayerDodgeArc * .5f);
     }
 }
 

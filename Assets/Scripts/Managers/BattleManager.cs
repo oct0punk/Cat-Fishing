@@ -88,14 +88,14 @@ public class BattleManager : MonoBehaviour
         ui.SpawnCatchImage();
         cam.Follow(f);
 
-        yield return Helpers.Wait(Boot.Datas.PreBattleDuration);
+        yield return Helpers.Wait(Boot.Datas.BattlePreDuration);
         Boot.game.Battle();
         f.Battle();
     }
 
     IEnumerator OnEndBattleRoutine()
     {
-        yield return Helpers.Wait(Boot.Datas.PostBattleDuration);
+        yield return Helpers.Wait(Boot.Datas.BattlePostDuration);
         Boot.cam.Reset();
         Boot.fish.Kill(conf.fish);
         Boot.game.Catch();
