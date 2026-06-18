@@ -1,6 +1,7 @@
 [System.Serializable]
 public class Log
 {
+    public           bool disableSpawwning = false;
     public /*const*/ bool boot  = false;
     public /*const*/ bool cam   = false;
     public /*const*/ bool ddg   = false;

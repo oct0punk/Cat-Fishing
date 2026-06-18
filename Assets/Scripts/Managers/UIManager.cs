@@ -29,6 +29,7 @@ public struct PlayScreen : IScreenUI
 [Serializable]
 public struct Menu : IScreenUI
 {
+    [SerializeField] GameObject parent;
     [SerializeField] GameObject title;
     [SerializeField] GameObject touch;
     [SerializeField] GameObject credits;
@@ -44,6 +45,7 @@ public struct Menu : IScreenUI
     }
     public void TouchHint()
     {
+        parent.SetActive(true);
         title.SetActive(false);
         credits.SetActive(false);
         touch.SetActive(true);
@@ -51,10 +53,12 @@ public struct Menu : IScreenUI
     }
     public void Display()
     {
+        parent.SetActive(true);
         PlayTitle();
     }
     public void Hide()
     {
+        parent.SetActive(false);
         //if (!isOn) return;
         title.SetActive(false);
         credits.SetActive(false);
@@ -122,6 +126,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] StaminaBar bar;
     [SerializeField] CatchScreen catchScreen;
     [Space]
+    [SerializeField] CatMenu catMenu;
     [SerializeField] LogText log;
     [SerializeField] bool disableLog;
 
@@ -249,5 +254,19 @@ public class UIManager : MonoBehaviour
         ig.rectTransform.anchorMax = Vector2.zero;
         go.transform.SetParent(canvas.transform, false);
         return ig;
+    }
+
+    public void OpenMenu()
+    {
+        //if (Boot.Logs.ui)        
+        Debug.Log("OpenMenu");
+        catMenu.Open();
+    }
+
+    public void CloseMenu()
+    {
+        //if (Boot.Logs.ui)
+        Debug.Log("CloseMenu");
+        catMenu.Close();
     }
 }

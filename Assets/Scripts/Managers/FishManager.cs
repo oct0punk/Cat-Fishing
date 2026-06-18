@@ -12,8 +12,9 @@ public class FishManager : MonoBehaviour
 
     public void Spawn()
     {
-        if (Boot.game.State != GameState.Fishing)   return;
-        if (fishFac.all.Count >= Boot.Datas.maxFishCount) return;
+        if (Boot.game.State != GameState.Fishing)           return;
+        if (Boot.Logs.disableSpawwning)                     return;
+        if (fishFac.all.Count >= Boot.Datas.maxFishCount)   return;
 
         Fish f = fishFac.Create() as Fish;
         f.Init(data);

@@ -104,6 +104,7 @@ public class PlayerFishingState : FiniteState<PlayerController>
 
     void Hook()
     {
+        if (Boot.game.State != GameState.Fishing) return;
         if (Boot.Logs.inp) Debug.Log("Hook action");
         if (!tgt.isFishing)
         {

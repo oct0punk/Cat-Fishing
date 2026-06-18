@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -6,6 +7,7 @@ public enum GameState
     Fishing,
     Battle,
     Catch,
+    Menu,
 }
 
 public class GameManager : MonoBehaviour
@@ -55,5 +57,27 @@ public class GameManager : MonoBehaviour
         Boot.player.CatchMode();
         Boot.con.WaitForNoTouch();
         Boot.con.onTouchUp.AddListener(Fishing);
+    }
+
+    public void OpenMenu()
+    {
+        if (State == GameState.Menu) { 
+            CloseMenu(); 
+            return; }
+        ChangeState(GameState.Menu);
+        Boot.ui.OpenMenu();
+        Boot.player.FishingMode();
+    }
+
+    public void CloseMenu()
+    {
+        Boot.con.WaitForNoTouch();
+        ChangeState(GameState.Fishing);
+        Boot.ui.CloseMenu();
+    }
+
+    public void GoToAquarium()
+    {
+        CloseMenu();
     }
 }

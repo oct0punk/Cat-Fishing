@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPointerClickHandler
 {
     PlayerFSM fsm;
 
@@ -32,4 +33,10 @@ public class PlayerController : MonoBehaviour
     public void CatchMode()     => fsm.CatchState();
     public void BattleMode()    => fsm.BattleState();
     public void FishingMode()   => fsm.FishingState();
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Boot.game.OpenMenu();
+    }
 }

@@ -63,6 +63,7 @@ public class ControlsManager : MonoBehaviour
             tPos.y / Screen.height);
     }
 
+   //Prevent triggering undesired touch events
     public void WaitForNoTouch()
     {
         if (Input.touchCount > 0)
