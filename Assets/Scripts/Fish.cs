@@ -4,40 +4,20 @@ using UnityEngine;
 
 public class Fish : MonoBehaviourWithEvents, IProduct
 {
-    FSM<Fish>               fsm;
-    FishAppearingState      appearingState;
-    FishIdleState           idleState;
-    FishBiteState           biteState;
-    FishFleeingState        fleeingState;
-    FishBattleState         battleState;
-
+    FishFSM fsm;
     public float    hp;
     public FishData dat;
 
 
     private void Awake()
     {
-        appearingState  = new FishAppearingState(this);
-        idleState       = new FishIdleState(this);
-        biteState       = new FishBiteState(this);
-        fleeingState    = new FishFleeingState(this);
-        battleState     = new FishBattleState(this);
-        fsm = appearingState;
-        fsm.OnEnter(this);
+        fsm = new FishFSM(this);
     }
 
     private void FixedUpdate()
     {
-        fsm.Tick(this);
+        fsm.Tick();
     }
-
-    public void ChangeState(FSM<Fish> newState)
-    {
-        fsm.OnEnd(this);
-        fsm = newState;
-        fsm.OnEnter(this);
-    }
-
 
     public void Init(FishData _data)
     {
@@ -48,11 +28,11 @@ public class Fish : MonoBehaviourWithEvents, IProduct
         }
     }
 
-    public void Idle() => ChangeState(idleState);
-    public void Bite() => ChangeState(biteState);
-    public void Flee() => ChangeState(fleeingState);
-    public void Battle() => ChangeState(battleState);
-    public void Destroy() => Destroy(gameObject);   //For fsm
+    public void Idle()      => fsm.IdleState();
+    public void Bite()      => fsm.BiteState();
+    public void Flee()      => fsm.FleeingState();
+    public void Battle()    => fsm.BattleState();
+    public void Destroy()   => Destroy(gameObject);   //For fsm
 
 
     public void MoveTo(Vector3 pos, float spd)

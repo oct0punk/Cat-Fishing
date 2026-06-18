@@ -1,7 +1,61 @@
 using UnityEngine;
 
 
-public class FishAppearingState : FSM<Fish>
+public class FishFSM
+{
+    FiniteState<Fish> fsm;
+    FishAppearingState appearingState;
+    FishIdleState idleState;
+    FishBiteState biteState;
+    FishFleeingState fleeingState;
+    FishBattleState battleState;
+    Fish f;
+
+
+    public FishFSM(Fish f)
+    {
+        this.f = f;
+
+        appearingState  = new FishAppearingState(f);
+        idleState       = new FishIdleState(f);
+        biteState       = new FishBiteState(f);
+        fleeingState    = new FishFleeingState(f);
+        battleState     = new FishBattleState(f);
+        fsm = appearingState;
+        fsm.OnEnter(f);
+    }
+
+    public void Tick()
+    {
+        fsm.Tick(f);
+    }
+
+    void ChangeState(FiniteState<Fish> newState)
+    {
+        fsm.OnEnd(f);
+        fsm = newState;
+        fsm.OnEnter(f);
+    }
+
+    public void IdleState() { 
+        ChangeState(idleState);
+    }
+
+    public void BiteState(){
+        ChangeState(biteState);
+    }
+
+    public void FleeingState(){
+        ChangeState(fleeingState);
+    }
+
+    public void BattleState(){
+        ChangeState(battleState);
+    }
+}
+
+
+public class FishAppearingState : FiniteState<Fish>
 {
     SpriteRenderer  rdr;
     Vector3         tarPos;
@@ -39,7 +93,7 @@ public class FishAppearingState : FSM<Fish>
     }
 }
 
-public class FishIdleState : FSM<Fish>
+public class FishIdleState : FiniteState<Fish>
 {
     public FishIdleState(Fish fish) : base(fish) { }
 
@@ -53,7 +107,7 @@ public class FishIdleState : FSM<Fish>
     }
 }
 
-public class FishBiteState : FSM<Fish>
+public class FishBiteState : FiniteState<Fish>
 {
     public Transform hook;
 
@@ -84,7 +138,7 @@ public class FishBiteState : FSM<Fish>
     }
 }
 
-public class FishFleeingState : FSM<Fish>
+public class FishFleeingState : FiniteState<Fish>
 {
     Vector3 tarPos;
     SpriteRenderer rdr;
@@ -125,7 +179,7 @@ public class FishFleeingState : FSM<Fish>
     }
 }
 
-public class FishBattleState : FSM<Fish>
+public class FishBattleState : FiniteState<Fish>
 {
     PlayerController p;
     Vector3 dir;

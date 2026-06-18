@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         if (Boot.Logs.game) Debug.Log("Fishing State");
         Boot.con.RemoveAllListeners();
         ChangeState(GameState.Fishing);
-        Boot.player.Fishing();
+        Boot.player.FishingMode();
         Boot.ui.FishingUI();
         Boot.con.WaitForNoTouch();
     }

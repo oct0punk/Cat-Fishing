@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour
     public Camera main;
 
     float defZoom;
-    float tarZoom;
+    [SerializeField]float tarZoom;
     float zoomVel;
     float tarRot;
     float rotVel;

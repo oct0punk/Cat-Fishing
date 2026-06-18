@@ -1,7 +1,62 @@
 using UnityEngine;
 
 
-public class PlayerFishingState : FSM<PlayerController>
+public class PlayerFSM
+{
+    PlayerController p;
+
+    FiniteState<PlayerController> fsm;
+    PlayerFishingState  fishingState;
+    PlayerBattleState   battleState;
+    PlayerCatchState    catchState;
+
+
+    public PlayerFSM(PlayerController pl)
+    {
+        this.p = pl;
+        fishingState = new PlayerFishingState(p);
+        battleState = new PlayerBattleState(p);
+        catchState = new PlayerCatchState(p);
+
+        fsm = fishingState;
+        fishingState.OnEnter(p);
+    }
+
+    public void Tick()
+    {
+        fsm.Tick(p);
+    }
+
+
+    public void CatchState()
+    {
+        fishingState.EndFishing();
+        ChangeFSM(p, catchState);
+    }
+
+    public void BattleState()
+    {
+        ChangeFSM(p, battleState);
+    }
+
+    public void FishingState()
+    {
+        ChangeFSM(p, fishingState);
+    }
+
+
+    void ChangeFSM(PlayerController p, FiniteState<PlayerController> o)
+    {
+        //if (Boot.Logs.fsm) Debug.Log("Change FSM state from " + fsm.GetType().Name + " to " + o.GetType().Name, gameObject);
+        fsm.OnEnd(p);
+        fsm = o;
+        fsm.OnEnter(p);
+    }
+}
+
+
+
+public class PlayerFishingState : FiniteState<PlayerController>
 {
     Vector3 aimPos;
 
@@ -70,7 +125,7 @@ public class PlayerFishingState : FSM<PlayerController>
     }
 }
 
-public class PlayerBattleState : FSM<PlayerController>
+public class PlayerBattleState : FiniteState<PlayerController>
 {
     public float offset;
     Vector3 vel;
@@ -127,7 +182,7 @@ public class PlayerBattleState : FSM<PlayerController>
 
     public override void Tick(PlayerController tgt)
     {
-        var dist = tgt.lineL * Boot.bat.GetProg() + Boot.Datas.PlayerCatchRange;
+        var dist = Boot.Datas.PlayerLineLength * Boot.bat.GetProg() + Boot.Datas.PlayerCatchRange;
         var st = f.transform.position;
         var dir = -Boot.bat.dir;
         var tar = st + Quaternion.Euler(0f, offset, 0f) * dir * dist;
@@ -170,7 +225,7 @@ public class PlayerBattleState : FSM<PlayerController>
     }
 }
 
-public class PlayerCatchState : FSM<PlayerController>
+public class PlayerCatchState : FiniteState<PlayerController>
 {
     SpriteRenderer spr;
 
