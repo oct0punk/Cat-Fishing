@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour, IPointerClickHandler
     public void BattleMode()    => fsm.BattleState();
     public void FishingMode()   => fsm.FishingState();
 
+    public void SetActive(bool val)
+    {
+        gameObject.SetActive(val);
+        hook.SetActive(val);
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {

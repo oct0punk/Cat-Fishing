@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum GameState
@@ -8,6 +10,7 @@ public enum GameState
     Battle,
     Catch,
     Menu,
+    Aquarium
 }
 
 public class GameManager : MonoBehaviour
@@ -79,5 +82,25 @@ public class GameManager : MonoBehaviour
     public void GoToAquarium()
     {
         CloseMenu();
+        Boot.player.SetActive(false);
+        Boot.fish.FleeAll();
+
+        if (Boot.Logs.game) Debug.Log("load aquarium");
+        ChangeState(GameState.Aquarium);
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+    }
+
+    public void ExitAquarium()
+    {
+        if (Boot.Logs.game) Debug.Log("exit aquarium");
+        StartCoroutine(UnloadAquarium());
+    }
+
+    IEnumerator UnloadAquarium()
+    {
+        yield return SceneManager.UnloadSceneAsync(1);
+        Debug.Log("unload completed");
+        Boot.player.SetActive(true);
+        ChangeState(GameState.Fishing);
     }
 }

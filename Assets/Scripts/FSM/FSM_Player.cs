@@ -118,7 +118,11 @@ public class PlayerFishingState : FiniteState<PlayerController>
     }
     void Aim()
     {
-        if (Boot.cam == null) return;
+        if (Boot.game.State != GameState.Fishing)   
+            return;
+        if (Boot.cam == null)                       
+            return;
+
         if (Boot.Logs.inp) Debug.Log("Aim event");
         var cam = Boot.cam.main;
         var wpos = cam.ScreenToWorldPoint(Boot.con.tPos);
