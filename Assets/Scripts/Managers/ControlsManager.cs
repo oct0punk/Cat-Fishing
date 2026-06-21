@@ -4,8 +4,7 @@ using UnityEngine.Events;
 
 public class ControlsManager : MonoBehaviour
 {
-    bool isWaitingForNoTouch = false;
-
+    public bool isWaitingForNoTouch = false;
     public Vector2 tPos { get; private set; }
     public UnityEvent onTouch;
     public UnityEvent onTouchBegin;

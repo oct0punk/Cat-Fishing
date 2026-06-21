@@ -44,7 +44,7 @@ public class FollowTarget : MonoBehaviour
     {
         if (targets == null)     return transform.position;
         if (targets.Length == 0) return transform.position;
-        if (targets.Length == 1)  return targets[0].position;
+        if (targets.Length == 1) return targets[0].position;
         Vector3 pos = Vector3.zero;
         foreach (Transform t in targets)
         {

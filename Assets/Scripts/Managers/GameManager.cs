@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         if (State == GameState.Battle) return;
         ChangeState(GameState.Battle);
         Boot.bat.Init(battle);
+        Boot.ui.CloseMenu();
     }
     public void Battle()
     {
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenMenu()
     {
+        if (State == GameState.Battle) return;
         if (State == GameState.Menu) { 
             CloseMenu(); 
             return; }
