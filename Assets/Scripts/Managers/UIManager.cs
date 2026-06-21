@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -115,6 +114,7 @@ public struct CatchScreen : IScreenUI
 
 public class UIManager : MonoBehaviour
 {
+    private bool hasBegunFishing = false;
     private UnityAction removeMenu;
     private IScreenUI[] screens;
 
@@ -154,6 +154,7 @@ public class UIManager : MonoBehaviour
 
     void ShowTouchHintIfNoInput()
     {
+        if (hasBegunFishing) return;
         if (Boot.Logs.ui) Debug.Log("Show hint if no touch");
         var p = Boot.player;
         if (p == null) throw Boot.MissingPlayerReference();
@@ -176,7 +177,8 @@ public class UIManager : MonoBehaviour
     public void MenuUI()
     {
         Focus<Menu>();
-        removeMenu = () => { 
+        removeMenu = () => {
+            hasBegunFishing = true;
             menu.Hide();
             var p = Boot.player;
             if (p != null) p.onStartFishing.RemoveListener(removeMenu);
