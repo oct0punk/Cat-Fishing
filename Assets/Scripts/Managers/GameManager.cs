@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     IEnumerator UnloadAquarium()
     {
         yield return SceneManager.UnloadSceneAsync(1);
-        Debug.Log("unload completed");
+        if (Boot.Logs.aqu) Debug.Log("unload completed");
         Boot.player.SetActive(true);
         ChangeState(GameState.Fishing);
     }

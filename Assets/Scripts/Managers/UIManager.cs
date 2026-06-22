@@ -261,14 +261,14 @@ public class UIManager : MonoBehaviour
     public void OpenMenu()
     {
         //if (Boot.Logs.ui)        
-        Debug.Log("OpenMenu");
+        if (Boot.Logs.ui) Debug.Log("OpenMenu");
         catMenu.Open();
     }
 
     public void CloseMenu()
     {
         //if (Boot.Logs.ui)
-        Debug.Log("CloseMenu");
+        if (Boot.Logs.ui) Debug.Log("CloseMenu");
         catMenu.Close();
     }
 }

@@ -13,6 +13,7 @@ public class Log
     public /*const*/ bool inp   = false;
     public /*const*/ bool iso   = false;
     public /*const*/ bool man   = false;
+    public /*const*/ bool aqu   = false;
     public /*const*/ bool ui    = false;
     public /*const*/ bool tw    = false;
 }

@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (Boot.con.isWaitingForNoTouch) return;
-        Debug.Log(name + " Game Object Clicked!");
+        if (Boot.Logs.inp) Debug.Log(name + " Game Object Clicked!");
         Boot.game.OpenMenu();
     }
 }

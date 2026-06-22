@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a79054bb3abe647b8ac99a39f5e80e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlsManager
+  isWaitingForNoTouch: 0
   onTouch:
     m_PersistentCalls:
       m_Calls: []
@@ -411,7 +412,7 @@ MonoBehaviour:
     BattlePostDuration: 0
     CamFollowSmoothing: 0.4
   logs:
-    disableSpawwning: 1
+    disableSpawwning: 0
     boot: 0
     cam: 0
     ddg: 0
@@ -420,9 +421,10 @@ MonoBehaviour:
     fish: 0
     fsm: 0
     game: 0
-    inp: 1
+    inp: 0
     iso: 0
     man: 0
+    aqu: 0
     ui: 0
     tw: 0
 --- !u!114 &623091884933688093

@@ -9,7 +9,7 @@ public class Aquarium : MonoBehaviour
     {
         if (Boot.game)
         {
-            Debug.Log("Boot game found");
+            if (Boot.Logs.aqu) Debug.Log("Boot game found");
             backButton.onClick.AddListener(Boot.game.ExitAquarium);
         }
         else

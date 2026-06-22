@@ -22299,6 +22299,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 623091884933688093, guid: db7dbb9ef62d87b439f31aa8de174de0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1323035621005204505, guid: db7dbb9ef62d87b439f31aa8de174de0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -22337,14 +22341,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1323035621005204505, guid: db7dbb9ef62d87b439f31aa8de174de0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2649675202931606398, guid: db7dbb9ef62d87b439f31aa8de174de0, type: 3}
-      propertyPath: logs.inp
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2649675202931606398, guid: db7dbb9ef62d87b439f31aa8de174de0, type: 3}
-      propertyPath: logs.disableSpawwning
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4763844876075198247, guid: db7dbb9ef62d87b439f31aa8de174de0, type: 3}
