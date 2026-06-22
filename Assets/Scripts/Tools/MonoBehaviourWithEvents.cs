@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class MonoBehaviourWithEvents : MonoBehaviour
 {
-    public UnityEvent onDestroy;
+    [HideInInspector] public UnityEvent onDestroy;
 
     private void OnDestroy()
     {

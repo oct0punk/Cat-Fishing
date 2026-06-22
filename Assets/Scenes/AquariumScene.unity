@@ -308,7 +308,7 @@ RectTransform:
   m_Father: {fileID: 1469771572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 3.047561, y: 2.8846154}
+  m_AnchorMax: {x: 3.2443779, y: 2.6024096}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -456,6 +456,76 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &217206363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 217206365}
+  - component: {fileID: 217206364}
+  m_Layer: 0
+  m_Name: Boot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &217206364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217206363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1218543086aef489d0bca464717953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boot
+  dontInit: 1
+  datas:
+    maxFishCount: 12
+    PlayerDodgeArc: 180
+    PlayerDodgeSpeed: 30
+    PlayerCatchRange: 1.2
+    PlayerLineLength: 6
+    BattlePreDuration: 1.3
+    BattlePostDuration: 0
+    CamFollowSmoothing: 0.4
+  logs:
+    disableSpawwning: 0
+    boot: 0
+    cam: 0
+    ddg: 0
+    ev: 0
+    fac: 0
+    fish: 0
+    fsm: 0
+    game: 0
+    inp: 0
+    iso: 0
+    man: 0
+    aqu: 0
+    ui: 0
+    tw: 0
+--- !u!4 &217206365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217206363}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376580944
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 666566805}
   - component: {fileID: 666566804}
+  - component: {fileID: 666566806}
   m_Layer: 0
   m_Name: Aquarium
   m_TagString: Untagged
@@ -576,6 +647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb4eefcfc0e43548b3139fd2d0cd5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Aquarium
+  spawnFish: 0
+  fishFac: {fileID: 666566806}
+  lbd: {fileID: 127213810}
+  rbd: {fileID: 376580945}
   backButton: {fileID: 1019671810}
 --- !u!4 &666566805
 Transform:
@@ -594,6 +669,20 @@ Transform:
   - {fileID: 376580945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &666566806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666566803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a492f0c209436ab45aeafd7407a69916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fish2DFactory
+  all: []
+  prefab: {fileID: 4481240519820933104, guid: 64b22516edd28334bbb5a036c6bfd405, type: 3}
 --- !u!1 &1019671808
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,3 +992,4 @@ SceneRoots:
   - {fileID: 666566805}
   - {fileID: 1469771572}
   - {fileID: 1668798749}
+  - {fileID: 217206365}

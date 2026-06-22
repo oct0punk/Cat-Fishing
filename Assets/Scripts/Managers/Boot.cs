@@ -1,8 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteAlways]
 public class Boot : MonoBehaviour
 {
+    [SerializeField] bool dontInit;
+
     public static bool isInit = false;
 
     public static GameManager   game;
@@ -28,6 +31,7 @@ public class Boot : MonoBehaviour
         Datas = datas;
         Logs = logs;
         if (Logs.boot) Debug.Log("init boot");
+        if (dontInit) return;
 
         T init<T>() where T : Component
         {
