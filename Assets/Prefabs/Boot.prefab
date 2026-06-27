@@ -92,6 +92,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013224e7575b1f1408e66998d7749618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!1 &1731322498957297695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6820233238018098638}
+  - component: {fileID: 174883086666027615}
+  - component: {fileID: 3375951342520599517}
+  m_Layer: 0
+  m_Name: ObstacleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6820233238018098638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731322498957297695}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1323035621005204505}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &174883086666027615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731322498957297695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da8501b6c70189f4daad78dbdfb4d0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleManager
+  fac: {fileID: 3375951342520599517}
+  inter: 1
+--- !u!114 &3375951342520599517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731322498957297695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75da791860d65a48acf26d29100d624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RockFactory
+  all: []
+  prefab: {fileID: 448347822982248915, guid: 0083a0c8581aa6246b6c6efb3215fbdb, type: 3}
 --- !u!1 &3427169592027663842
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +436,7 @@ Transform:
   - {fileID: 3792424606069260206}
   - {fileID: 4294836330558566393}
   - {fileID: 1092755608660206302}
+  - {fileID: 6820233238018098638}
   - {fileID: 5026341294092627603}
   - {fileID: 4337597033611684025}
   m_Father: {fileID: 0}

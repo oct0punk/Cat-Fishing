@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
         Boot.ui.PrintLog("BeginBattle!!");
         Boot.ui.BattleUI();
         Boot.player.BattleMode();
+        Boot.obs.StartSpawning();
         Boot.bat.enabled = true;
     }
 
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         Boot.player.CatchMode();
         Boot.con.WaitForNoTouch();
         Boot.con.onTouchUp.AddListener(Fishing);
+        Boot.obs.StopSpawning();
     }
 
     public void OpenMenu()

@@ -15,6 +15,7 @@ public class Boot : MonoBehaviour
     public static BattleManager bat;
     public static TweenManager  twn;
     public static ControlsManager con;
+    public static ObstacleManager obs;
 
     public static PlayerController player;
 
@@ -60,6 +61,7 @@ public class Boot : MonoBehaviour
         bat     = init<BattleManager>();
         twn     = init<TweenManager>();
         con     = init<ControlsManager>();
+        obs     = init<ObstacleManager>();
         player  = FindFirstObjectByType<PlayerController>();
 
         bat.enabled = false;

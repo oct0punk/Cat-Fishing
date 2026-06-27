@@ -27,7 +27,7 @@ public static class Helpers
     }
 
     public static Vector2 WorldToScreen(Vector3 world) { return RectTransformUtility.WorldToScreenPoint(Boot.cam.main, world); }
-    public static Vector2 ScreenToWater(Vector2 scrpos)
+    public static Vector3 ScreenToWater(Vector2 scrpos)
     { 
         var ray = RectTransformUtility.ScreenPointToRay(Boot.cam.main, scrpos);
         return LinePlaneIntersection(ray.origin, ray.direction, Vector3.zero, Vector3.up);
@@ -47,5 +47,10 @@ public static class Helpers
     
     public static Color ColAlpha(Vector3 rgb, float alpha)  => new(rgb.x, rgb.y, rgb.z, alpha);
     public static Color ColAlpha(Color rgb, float alpha)    => new(rgb.r, rgb.g, rgb.b, alpha);
+
+    public static Quaternion RandomRotation()
+    {
+        return Quaternion.Euler(0f, Random.value * 360f, 0f);
+    }
 }
 
